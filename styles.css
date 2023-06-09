@@ -1,0 +1,34 @@
+html, body {
+  margin: 10;
+  padding: 10;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 200px;
+  height: 200px;
+  border: solid 2px black;
+}
+
+.snake {
+  background: green;
+}
+
+.square {
+  width: 20px;
+  height: 20px;
+  
+}
+
+.apple::after {
+ content: "🍎";
+}
+
+.head {
+  content: url(img/snakeHead.png);
+  width: 20px;
+  height: 20px;
+  transform: rotate(-90deg);
+}
+
