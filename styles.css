@@ -15,6 +15,13 @@ html, body {
   border: solid 2px black;
 }
 
+.game-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: cente;
+  align-items: center;
+}
+
 .snake {
   background: green;
 }
