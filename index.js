@@ -115,11 +115,11 @@ function control(e) {
     if (e.keyCode === 39) {
        direction = 1
     } else if (e.keyCode === 38) {
-       ection = -width
+       direction = -width
     } else if (e.keyCode === 37) {
-       irection = -1
+       direction = -1
     } else if (e.keyCode === 40) {
-       irection = +width
+       direction = +width
     }
 }
 document.addEventListener('keyup', control)
