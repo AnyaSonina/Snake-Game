@@ -23,16 +23,21 @@ function createGrid() {
     //push it into a new squares array    
     squares.push(square)
     }
+    
+    squares[currentSnake[0]].classList.add("head-br")
+    squares[currentSnake[currentSnake.length-1]].classList.add("tail-br")
 }
 createGrid()
 
-currentSnake.forEach(index => squares[index].classList.add('snake'))
+
+currentSnake.forEach(index => {
+    squares[index].classList.add('snake')})
 
 function startGame() {
     //remove the snake
     currentSnake.forEach(index => squares[index].classList.remove('snake'))
     //remove the apple
-    squares[appleIndex].classList.remove('apple')
+    squares[currentSnake[currentSnake.length-1]].classList.remove("tail-br")
     clearInterval(timerId)
     currentSnake = [2,1,0]
     score = 0
@@ -43,8 +48,13 @@ function startGame() {
     generateApple()
     //readd the class of snake to our new currentSnake
     currentSnake.forEach(index => squares[index].classList.add('snake'))
+   
+
+
     timerId = setInterval(move, intervalTime)
 }
+
+
 
 function move() {
     if (
@@ -52,16 +62,26 @@ function move() {
         (currentSnake[0] % width === width-1 && direction === 1) || //if snake has hit right wall
         (currentSnake[0] % width === 0 && direction === -1) || //if snake has hit left wall
         (currentSnake[0] - width < 0 && direction === -width) || //if snake has hit top
+        
+        
         squares[currentSnake[0] + direction].classList.contains('snake')
     )
     return clearInterval(timerId)
 
     //remove last element from our currentSnake array
     const tail = currentSnake.pop()
+    
+   
     //remove styling from last element
     squares[tail].classList.remove('snake')
+    squares[tail].classList.remove("tail-br")
+    squares[currentSnake[0]].classList.remove("head-br")
+    
     //add square in direction we are heading
     currentSnake.unshift(currentSnake[0] + direction)
+    squares[currentSnake[currentSnake.length-1]].classList.add("tail-br")
+    squares[currentSnake[0]].classList.add("head-br")
+
     //add styling so we can see it
     
     //deal with snake head gets apple
@@ -69,11 +89,14 @@ function move() {
         //remove the class of apple
         squares[currentSnake[0]].classList.remove('apple')
         //grow our snake by adding class of snake to it
+        squares[tail].classList.add("tail-br")
         squares[tail].classList.add('snake')
-       
+         
+       squares[currentSnake[currentSnake.length-1]].classList.remove("tail-br")
+
         //grow our snake array
         currentSnake.push(tail)
-      
+        squares[currentSnake[currentSnake.length-1]].classList.add("tail-br")
         //generate new apple
         generateApple()
         //add one to the score
@@ -116,6 +139,7 @@ function control(e) {
        direction = 1
     } else if (e.keyCode === 38) {
        direction = -width
+      
     } else if (e.keyCode === 37) {
        direction = -1
     } else if (e.keyCode === 40) {

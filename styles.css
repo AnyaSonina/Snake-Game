@@ -41,10 +41,11 @@ html, body {
   margin: 0 auto;
 }
 
-.head {
-  content: url(img/snakeHead.png);
-  width: 20px;
-  height: 20px;
-  transform: rotate(-90deg);
+
+.head-br {
+  border-radius: 0% 100% 100% 0% / 30% 50% 50% 70%;
 }
 
+.tail-br {
+  border-radius: 100% 0% 0% 100% / 50% 50% 50% 50%;
+}
