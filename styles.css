@@ -10,8 +10,8 @@ html, body {
 .grid {
   display: grid;
   grid: repeat(10, minmax(20px, 1fr))/repeat(10, minmax(20px, 1fr));
-  width: 90vmin;
-  height: 90vmin;
+  width: 80vmin;
+  height: 80vmin;
   border: solid 2px black;
 }
 
@@ -20,13 +20,18 @@ html, body {
 }
 
 .square {
-  width: 20px;
-  height: 20px;
-  
+  width: minmax(20px, 1fr);
+  height: minmax(20px, 1fr);  
+}
+
+.apple {
+  display: flex;
+  align-items: center;
 }
 
 .apple::after {
  content: "🍎";
+  margin: 0 auto;
 }
 
 .head {
