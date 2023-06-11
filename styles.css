@@ -24,6 +24,7 @@ html, body {
 
 .snake {
   background: green;
+  border-radius: 50%;
 }
 
 .square {
