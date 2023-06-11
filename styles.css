@@ -10,15 +10,10 @@ html, body {
   background-size: cover;
   background-color: #ffffff61;
   background-blend-mode: soft-light;
+  color: #37363A;
 }
 
-.grid {
-  display: grid;
-  grid: repeat(10, minmax(20px, 1fr))/repeat(10, minmax(20px, 1fr));
-  width: 80vmin;
-  height: 80vmin;
-  border: solid 2px black;
-  z-index: 1;
+.box {
   background-color: #e8ddd9;
   border-radius: 10px;
   border: none;
@@ -26,11 +21,20 @@ html, body {
   padding: 5px;
 }
 
+.grid {
+  display: grid;
+  grid: repeat(10, minmax(20px, 1fr))/repeat(10, minmax(20px, 1fr));
+  width: 80vmin;
+  height: 80vmin;
+  z-index: 1;
+}
+
 .game-info {
   display: flex;
   flex-direction: column;
   justify-content: cente;
   align-items: center;
+  background-color: #e8ddd9;
 }
 
 .snake {
