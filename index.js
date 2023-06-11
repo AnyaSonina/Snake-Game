@@ -32,14 +32,17 @@ createGrid()
 
 
 currentSnake.forEach(index => {
-    squares[index].classList.add('snake')})
+    squares[index].classList.add('snake')
     squares[currentSnake[0]].classList.remove("snake")
-
+})
+   
 function startGame() {
     //remove the snake
     currentSnake.forEach(index => squares[index].classList.remove('snake'))
     //remove the apple
- 
+    squares[appleIndex].classList.remove("apple")
+     //remove the head
+     squares[currentSnake[0]].classList.remove("head-br")
     clearInterval(timerId)
     currentSnake = [2,1,0]
     score = 0
@@ -50,6 +53,7 @@ function startGame() {
     generateApple()
     //readd the class of snake to our new currentSnake
     currentSnake.forEach(index => squares[index].classList.add('snake'))
+    squares[currentSnake[0]].classList.add("head-br")
    
 
 
