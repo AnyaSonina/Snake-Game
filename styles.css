@@ -27,6 +27,7 @@ html, body {
   width: 80vmin;
   height: 80vmin;
   z-index: 1;
+  margin-top: 2em;
 }
 
 .game-info {
@@ -35,6 +36,8 @@ html, body {
   justify-content: cente;
   align-items: center;
   background-color: #e8ddd9;
+  width: 80vmin;
+  margin-top: 1em;
 }
 
 .snake {
