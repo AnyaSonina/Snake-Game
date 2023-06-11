@@ -74,4 +74,22 @@ html, body {
   border-radius: 100% 0% 0% 100% / 50% 50% 50% 50%;
 }
 
+button {
+  border-radius: 10px;
+  border: none;
+  padding: 1em 2em;
+  color: #fff;
+  font-weight: 700;
+  background-color: rgb(182, 39, 39);  
+  box-shadow: 0 3px #7E978D;
+}
 
+button:hover {
+  background-color: rgba(223, 44, 44, 0.962);  
+}
+
+button:active {  
+  background-color: rgba(223, 44, 44, 0.962);
+  box-shadow: none;
+  transform: translateY(4px);
+}
