@@ -26,6 +26,7 @@ function createGrid() {
     
     squares[currentSnake[0]].classList.add("head-br")
     squares[currentSnake[0]].style.transform = "rotate(-90deg)"
+ 
    
 }
 createGrid()
@@ -75,7 +76,7 @@ function move() {
     )
     return clearInterval(timerId)
 
-
+   
     //remove last element from our currentSnake array
     const tail = currentSnake.pop()
       
@@ -95,6 +96,14 @@ function move() {
         }else if(direction === -width) {
             squares[currentSnake[0]].style.transform = "rotate(180deg)"
         }
+
+    //rotate only the head     
+        squares.map(square => {
+            if(!square.classList.contains("head-br")) 
+             square.style.transform = "rotate(0)"  
+        })
+
+        console.log(squares[currentSnake[0]], squares[currentSnake[1]])
    //add styling so we can see it
     
     //deal with snake head gets apple
