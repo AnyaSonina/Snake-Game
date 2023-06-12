@@ -1,6 +1,7 @@
 const grid = document.querySelector('.grid')
 const startButton = document.getElementById('start')
 const scoreDisplay = document.getElementById('score')
+const gameField = document.getElementById("game-grid")
 let squares = []
 let currentSnake = [2,1,0]
 let direction = 1
@@ -37,6 +38,8 @@ currentSnake.forEach(index => {
 })
    
 function startGame() {
+   gameField.scrollIntoView()
+   
     //remove the snake
     currentSnake.forEach(index => squares[index].classList.remove('snake'))
     //remove the apple

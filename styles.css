@@ -68,6 +68,7 @@ html, body {
   background-image: url("./img/snakeHead.png");
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
 }
 
 
