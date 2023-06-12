@@ -161,5 +161,8 @@ function control(e) {
 document.addEventListener('keyup', control)
 startButton.addEventListener('click', startGame)
 
+gameField.addEventListener("click", () => {
+    startGame()
+})
 
 

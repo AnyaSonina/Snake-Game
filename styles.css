@@ -32,10 +32,10 @@ body {
 .grid {
   display: grid;
   grid: repeat(10, minmax(20px, 1fr))/repeat(10, minmax(20px, 1fr));
-  width: 80vmin;
-  height: 80vmin;
+  width: 70vmin;
+  height: 70vmin;
   z-index: 1;
-  margin-top: 2em;
+  margin: 2em 0;
 }
 
 .game-info {
