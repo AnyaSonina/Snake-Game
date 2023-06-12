@@ -41,15 +41,15 @@ currentSnake.forEach(index => {
 function startGame() {
    gameField.scrollIntoView()
    gameField.focus()
-
+   gameField.style.opacity = "1"
+   document.getElementById("popup").style.display = "none"
     //remove the snake
     currentSnake.forEach(index => squares[index].classList.remove('snake'))
     //remove the apple
     squares[appleIndex].classList.remove("apple")
      //remove the head
     squares[currentSnake[0]].classList.remove("head-br")
-    squares[currentSnake[0]].style.transform = "rotate(0)"
-
+  
     clearInterval(timerId)
     currentSnake = [2,1,0]
     score = 0
@@ -62,6 +62,8 @@ function startGame() {
     currentSnake.forEach(index => squares[index].classList.add('snake'))
     squares[currentSnake[0]].classList.add("head-br")
     squares[currentSnake[0]].style.transform = "rotate(-90deg)"
+   
+
    
     timerId = setInterval(move, intervalTime)
 }
@@ -77,8 +79,12 @@ function move() {
         
         
         squares[currentSnake[0] + direction].classList.contains('snake')
-    )
-    return clearInterval(timerId)
+    ) {    
+        gameField.style.opacity = "0.8"
+        document.getElementById("popup").style.display = "block"
+        return clearInterval(timerId)
+    }
+    
 
    
     //remove last element from our currentSnake array
@@ -140,7 +146,6 @@ function generateApple() {
     squares[appleIndex].classList.add('apple')
 } 
 
-
 // 39 is right arrow
 // 38 is for the up arrow
 // 37 is for the left arrow
@@ -162,6 +167,7 @@ document.addEventListener('keyup', control)
 startButton.addEventListener('click', startGame)
 
 gameField.addEventListener("click", () => {
+
     startGame()
 })
 
