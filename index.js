@@ -36,10 +36,12 @@ currentSnake.forEach(index => {
     squares[index].classList.add('snake')
     squares[currentSnake[0]].classList.remove("snake")
 })
-   
+
+
 function startGame() {
    gameField.scrollIntoView()
-   
+   gameField.focus()
+
     //remove the snake
     currentSnake.forEach(index => squares[index].classList.remove('snake'))
     //remove the apple
@@ -66,6 +68,7 @@ function startGame() {
 
 
 function move() {
+   gameField.focus({block:"center"})
     if (
         (currentSnake[0] + width >= width*width && direction === width) || //if snake has hit bottom
         (currentSnake[0] % width === width-1 && direction === 1) || //if snake has hit right wall
