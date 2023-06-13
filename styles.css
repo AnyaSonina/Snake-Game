@@ -42,11 +42,12 @@ h2 {
 }
 
 .small-box {
-  background-color: #e8ddd9;
+  background-color: #4F5063;
   height: min-content;
   border-radius: 10px;
   border: none;
   padding: 5px;
+  color:white;
 }
 
 .grid-container {
@@ -63,9 +64,26 @@ h2 {
    "speed  grid grid";
 }
 
+@media (min-width: 650px) {
+  .grid-container {
+    grid-template-areas:
+    " title title title"
+     "score grid level"
+     " best grid speed"
+     "..... grid .....";
+  }
+
+  .title {
+    align-self: center;
+    width: 100%;
+  }
+}
+
 .title {
   grid-area: title;
   justify-self: center;
+  width: 95%;
+  text-align: center;
   /* margin-bottom: 0; */
 }
 
