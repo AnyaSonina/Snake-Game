@@ -41,16 +41,26 @@ h2 {
   padding: 5px;
 }
 
+.small-box {
+  background-color: #e8ddd9;
+  height: min-content;
+  border-radius: 10px;
+  border: none;
+  padding: 5px;
+}
+
 .grid-container {
   display:grid;
   height: 80vmin;
   margin: 0 1.5em;
+  gap:10px;
   grid-template-columns: minmax(50px,100px) 60vmin minmax(50px,100px);
   grid-template-areas:
   " title title title"
-   "score grid level"
-   " best grid speed"
-   "....  grid .....";
+   "score grid grid"
+   " best grid grid"
+   "level  grid grid"
+   "speed  grid grid";
 }
 
 .title {
@@ -74,6 +84,7 @@ h2 {
 
 #game-grid {
   grid-area: grid;
+  margin: 0 1em 0 0;
 }
 
 #score {
