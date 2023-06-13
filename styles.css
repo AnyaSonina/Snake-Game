@@ -2,23 +2,25 @@
   box-sizing: border-box;
 }
 
-html {
-  width: 100%;
-  height: 100vh;
+html { 
+  background: url("./img/bg.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color: #ffffff61;
+  background-blend-mode: soft-light;
 }
 
 body {
+  height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-image: url("./img/bg.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-color: #ffffff61;
-  background-blend-mode: soft-light;
   color: #37363A;
-  margin: 2em;
+  margin: 0;
 }
 
 .box {
@@ -29,11 +31,48 @@ body {
   padding: 5px;
 }
 
+.grid-container {
+  display:grid;
+  height: 80vmin;
+  grid-template-columns: 100px 60vmin 100px;
+  grid-template-areas:
+  " title title title"
+   "score grid level"
+   "best grid speed"
+   ".... grid ....."
+   ".... grid .....";
+}
+
+.title {
+  grid-area: title;
+  justify-self: center;
+}
+
+#game-grid {
+  grid-area: grid;
+}
+
+#score {
+  grid-area: score;
+}
+
+#best-score {
+  grid-area: best;
+}
+
+#level {
+  grid-area: level;
+}
+
+#speed {
+  grid-area: speed;
+}
+
 .grid {
   display: grid;
   grid: repeat(10, minmax(20px, 1fr))/repeat(10, minmax(20px, 1fr));
-  width: 70vmin;
-  height: 70vmin;
+  /* width: 70vmin;
+  height: 70vmin; */
   z-index: 1;
   margin: 2em 0;
 }
@@ -82,26 +121,6 @@ body {
 
 .tail-br {
   border-radius: 100% 0% 0% 100% / 50% 50% 50% 50%;
-}
-
-button {
-  border-radius: 10px;
-  border: none;
-  padding: 1em 2em;
-  color: #fff;
-  font-weight: 700;
-  background-color: rgb(182, 39, 39);  
-  box-shadow: 0 3px #7E978D;
-}
-
-button:hover {
-  background-color: rgba(223, 44, 44, 0.962);  
-}
-
-button:active {  
-  background-color: rgba(223, 44, 44, 0.962);
-  box-shadow: none;
-  transform: translateY(4px);
 }
 
 #popup {

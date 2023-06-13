@@ -164,11 +164,17 @@ function control(e) {
     }
 }
 document.addEventListener('keyup', control)
-startButton.addEventListener('click', startGame)
+// startButton.addEventListener('click', startGame)
 
 gameField.addEventListener("click", () => {
 
     startGame()
 })
 
+//store the best result in a local storage
+//create levels with a different starting speed
+//the last level will have the fastest speed but the walls will be permeable
+//depending on the best result, restart the game from the suitable level
+//change the design of "game-info section" name at the top and different features around
+//get rid of stat button (just notify the user to click on the field)
 

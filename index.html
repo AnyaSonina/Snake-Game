@@ -8,12 +8,15 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="game-info box">
-      <h1>Snake Game</h1>
-      <button id="start">Restart</button>
+    <div class="grid-container">
+      <h1 class="title">Snake Game</h1>
+
       <h2>Score:<span id="score">0</span></h2>
+      <h2 id="best-score">Best score: <span id="best"></span></h2>
+      <div id="game-grid" class="grid box"></div>
+      <h2 id="level">Level: <span></span></h2>
+      <h2 id="speed">Speed <span></span></h2>
     </div>
-    <div id="game-grid" class="grid box"></div>
     <div id="popup"><h3>Oops, you hit the wall! Try again!</h3></div>
 
     <script src="index.js"></script>
