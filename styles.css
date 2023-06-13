@@ -64,21 +64,6 @@ h2 {
    "speed  grid grid";
 }
 
-@media (min-width: 650px) {
-  .grid-container {
-    grid-template-areas:
-    " title title title"
-     "score grid level"
-     " best grid speed"
-     "..... grid .....";
-  }
-
-  .title {
-    align-self: center;
-    width: 100%;
-  }
-}
-
 .title {
   grid-area: title;
   justify-self: center;
@@ -177,10 +162,41 @@ h2 {
 #popup {
   display: none;
   position: absolute;
-  top: 65%;
+  top: 60%;
+  left:50%;
+  min-width: 200px;
+  transform: translate(-38%, -50%);
+  text-align: center;
   z-index: 2;
-  background-color: #597B75;
+  background-color: #4F5063;
   color: white;
   padding: 1em 2em;
   border-radius: 10px;
+}
+
+@media (min-width: 406px) {
+  #popup {
+    top:55%;
+    transform: translate(-25%, -50%);
+  }
+}
+
+@media (min-width: 650px) {
+  .grid-container {
+    grid-template-areas:
+    " title title title"
+     "score grid level"
+     " best grid speed"
+     "..... grid .....";
+  }
+
+  .title {
+    align-self: center;
+    width: 100%;
+  }
+
+  #popup {
+    top:60%;
+    transform: translate(-50%, -50%);
+  }
 }
