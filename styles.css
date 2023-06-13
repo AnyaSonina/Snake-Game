@@ -44,7 +44,7 @@ h2 {
 .grid-container {
   display:grid;
   height: 80vmin;
-  gap: 10px;
+  margin: 0 1.5em;
   grid-template-columns: minmax(50px,100px) 60vmin minmax(50px,100px);
   grid-template-areas:
   " title title title"
@@ -78,22 +78,18 @@ h2 {
 
 #score {
   grid-area: score;
-  justify-self: end;
 }
 
 #best-score {
   grid-area: best;
-  justify-self: end;
 }
 
 #level {
   grid-area: level;
-  justify-self: start;
 }
 
 #speed {
   grid-area: speed;
-  justify-self: start;
 }
 
 .grid {
