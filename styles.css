@@ -96,7 +96,6 @@ h2 {
 
 #game-grid {
   grid-area: grid;
-  margin: 0 1em 0 0;
 }
 
 #score {
