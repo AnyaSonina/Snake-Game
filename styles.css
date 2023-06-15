@@ -196,9 +196,9 @@ h2 {
   }
 }
 
-@media (min-width: 450px) {
+@media (min-width: 768px) {
   .grid-container {
-    grid-template-columns: minmax(50px,1fr) 60vmin minmax(50px,1fr);
+    grid-template-columns: minmax(50px,1fr) 75vmin minmax(50px,1fr);
     grid-template-areas:
     " title title title"
      "score grid level"
@@ -206,26 +206,17 @@ h2 {
      "..... grid .....";
   }
   
-}
-
-@media (min-width: 650px) {
-  
-  .grid-container {
-    grid-template-columns: minmax(50px,1fr) 60vmin minmax(50px,1fr);
-    grid-template-areas:
-    " title title title"
-     "score grid level"
-     " best grid speed"
-     "..... grid .....";
-  }
-
   .title {
     align-self: center;
     width: 100%;
   }
-
+  
   #popup {
     top:60%;
     transform: translate(-50%, -50%);
   }
 }
+
+
+ 
+
