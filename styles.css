@@ -164,10 +164,10 @@ h2 {
 #popup {
   display: none;
   position: absolute;
-  top: 60%;
+  top: 45%;
   left:50%;
   min-width: 200px;
-  transform: translate(-38%, -50%);
+  transform: translate(-50%, -50%);
   text-align: center;
   z-index: 2;
   background-color: #4F5063;
@@ -192,6 +192,11 @@ h2 {
     justify-content: center;
     align-items: center;
   }
+
+  #popup {
+    top:50%;
+    transform: translate(-30%, -50%);
+  }
 }
 
 @media (min-width: 768px) {
@@ -210,7 +215,7 @@ h2 {
   }
   
   #popup {
-    top:60%;
+    top:50%;
     transform: translate(-50%, -50%);
   }
 
