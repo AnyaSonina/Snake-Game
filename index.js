@@ -1,6 +1,6 @@
 const grid = document.querySelector('.grid')
 const startButton = document.getElementById('start')
-const scoreDisplay = document.getElementById('score')
+const scoreDisplay = document.getElementById('score-display')
 const gameField = document.getElementById("game-grid")
 const bestResDisplay = document.getElementById("best")
 let squares = []
