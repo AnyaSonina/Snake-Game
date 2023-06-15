@@ -115,6 +115,8 @@ h2 {
 }
 
 .grid {
+  height: 75vmin;
+  width: 75vmin;
   display: grid;
   grid: repeat(10, minmax(20px, 1fr))/repeat(10, minmax(20px, 1fr));
   z-index: 1;
@@ -204,9 +206,6 @@ h2 {
      "..... grid .....";
   }
   
-  .grid {
-    height: 60vmin;
-  }
 }
 
 @media (min-width: 650px) {
@@ -218,10 +217,6 @@ h2 {
      "score grid level"
      " best grid speed"
      "..... grid .....";
-  }
-
-  .grid {
-    height: 60vmin;
   }
 
   .title {
