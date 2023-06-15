@@ -89,7 +89,7 @@ function move() {
         resultsArr.unshift(score)
         localStorage.setItem("score", JSON.stringify(resultsArr))
         storedResults = JSON.parse(localStorage.getItem("score"))
-        storedResults[0] > bestScore ? bestScore=storedResults[0] : bestScore=bestScore
+        storedResults[0] > bestScore ? bestScore=storedResults[0] : bestScore
         bestResDisplay.innerText = bestScore
         return clearInterval(timerId)
     }
