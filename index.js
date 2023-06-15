@@ -2,6 +2,7 @@ const grid = document.querySelector('.grid')
 const startButton = document.getElementById('start')
 const scoreDisplay = document.getElementById('score')
 const gameField = document.getElementById("game-grid")
+const bestResDisplay = document.getElementById("best")
 let squares = []
 let currentSnake = [2,1,0]
 let direction = 1
@@ -9,9 +10,13 @@ const width = 10
 let appleIndex = 0
 let score = 0
 let bestScore = 0
+let resultsArr = []
 let intervalTime = 1000
 let speed = 0.9
 let timerId = 0
+
+
+
 
 function createGrid() {
     //create 100 of these elements with a for loop
@@ -38,7 +43,7 @@ currentSnake.forEach(index => {
     squares[currentSnake[0]].classList.remove("snake")
 })
 
-
+let storedResults
 function startGame() {
    gameField.scrollIntoView()
    gameField.focus()
@@ -81,7 +86,11 @@ function move() {
     ) {    
         gameField.style.opacity = "0.8"
         document.getElementById("popup").style.display = "block"
-        localStorage.setItem("score", JSON.stringify(score))
+        resultsArr.unshift(score)
+        localStorage.setItem("score", JSON.stringify(resultsArr))
+        storedResults = JSON.parse(localStorage.getItem("score"))
+        storedResults[0] > bestScore ? bestScore=storedResults[0] : bestScore=bestScore
+        bestResDisplay.innerText = bestScore
         return clearInterval(timerId)
     }
     
@@ -113,7 +122,7 @@ function move() {
              square.style.transform = "rotate(0)"  
         })
 
-        console.log(squares[currentSnake[0]], squares[currentSnake[1]])
+      
    //add styling so we can see it
     
     //deal with snake head gets apple
@@ -172,9 +181,6 @@ gameField.addEventListener("click", () => {
 })
 
 //storing best result
-
-
-
 
 
 
