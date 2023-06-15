@@ -8,6 +8,7 @@ let direction = 1
 const width = 10
 let appleIndex = 0
 let score = 0
+let bestScore = 0
 let intervalTime = 1000
 let speed = 0.9
 let timerId = 0
@@ -76,12 +77,11 @@ function move() {
         (currentSnake[0] % width === width-1 && direction === 1) || //if snake has hit right wall
         (currentSnake[0] % width === 0 && direction === -1) || //if snake has hit left wall
         (currentSnake[0] - width < 0 && direction === -width) || //if snake has hit top
-        
-        
         squares[currentSnake[0] + direction].classList.contains('snake')
     ) {    
         gameField.style.opacity = "0.8"
         document.getElementById("popup").style.display = "block"
+        localStorage.setItem("score", JSON.stringify(score))
         return clearInterval(timerId)
     }
     
@@ -170,6 +170,14 @@ gameField.addEventListener("click", () => {
 
     startGame()
 })
+
+//storing best result
+
+
+
+
+
+
 
 //store the best result in a local storage
 //create levels with a different starting speed
