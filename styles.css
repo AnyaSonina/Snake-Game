@@ -66,24 +66,16 @@ h2 {
    "level speed";
 }
 
-/*grid-template-areas:
-  " title title title"
-   "score grid grid"
-   " best grid grid"
-   "level  grid grid"
-   "speed  grid grid";*/
-
 .title {
   grid-area: title;
   justify-self: center;
   width: 100%;
   text-align: center;
-  /* margin-bottom: 0; */
 }
 
-.flex-col {
+.flex {
   display: flex;
-  flex-direction: column;
+  justify-content: space-around;
 }
 
 #game-grid, #score, #level, #best-score, #speed {
@@ -194,6 +186,12 @@ h2 {
      "level  grid "
      "speed  grid";
   }
+
+  .flex {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 @media (min-width: 768px) {
@@ -215,6 +213,10 @@ h2 {
     top:60%;
     transform: translate(-50%, -50%);
   }
+
+  .flex {
+    flex-direction: column;
+ }
 }
 
 
