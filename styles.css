@@ -157,6 +157,50 @@ h2 {
   border-radius: 10px;
 }
 
+/*Keys*/
+
+.keys-container {
+  display: none;
+  grid-area: info;
+  justify-content: center;
+  grid-template-columns: 50px 50px 50px;
+  grid-template-rows: auto;
+  grid-template-areas:
+    ".    up   ."
+    "left down right";
+  grid-gap: 10px;
+  padding: 1rem;
+}
+
+.keys-container button {
+  background-color: #f5f5f5;
+  border: none;
+  padding: 0.5rem;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.keys-container button:focus {
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+#ArrowUp {
+  grid-area: up;
+}
+
+#ArrowDown {
+  grid-area: down;
+}
+
+#ArrowLeft {
+  grid-area: left;
+}
+
+#ArrowRight {
+  grid-area: right;
+}
+
+
 @media (min-width: 406px) {
   .grid-container {
     grid-template-columns: minmax(50px,1fr) 6fr;

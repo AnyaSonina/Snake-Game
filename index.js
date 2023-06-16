@@ -5,6 +5,8 @@ const gameField = document.getElementById("game-grid")
 const bestResDisplay = document.getElementById("best")
 const popup = document.getElementById("popup")
 const levelDisplay = document.getElementById("level-display")
+const infoDisplay = document.getElementById("info")
+const buttonsDisplay = document.getElementById("buttons")
 let squares = []
 let currentSnake = [2,1,0]
 let direction = 1
@@ -85,6 +87,8 @@ function move() {
         (currentSnake[0] - width < 0 && direction === -width) ||
         squares[currentSnake[0] + direction].classList.contains('snake')
     ) {    
+        infoDisplay.style.display = "grid"
+        buttonsDisplay.style.display = "none"
         gameField.style.opacity = "0.8"
         document.getElementById("popup").style.display = "block"
         resultsArr.unshift(score)
@@ -163,8 +167,13 @@ function handleKeyMove(e) {
 
 document.addEventListener('keyup', handleKeyMove)
 
+
 gameField.addEventListener("click", () => {
     startGame()
+    if(window.screen.width < 406) {
+        infoDisplay.style.display = "none"
+        buttonsDisplay.style.display = "grid"
+    }
 })
 
 function levelTwo() {
@@ -184,3 +193,4 @@ function levelTwo() {
 //depending on the best result, restart the game from the suitable level
 //change the design of "game-info section" name at the top and different features around
 //get rid of stat button (just notify the user to click on the field)
+/*Displaying keys-container on smaller screens on the start of the game */
