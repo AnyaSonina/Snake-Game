@@ -7,6 +7,7 @@ const popup = document.getElementById("popup")
 const levelDisplay = document.getElementById("level-display")
 const infoDisplay = document.getElementById("info")
 const buttonsDisplay = document.getElementById("buttons")
+const keyBtns = document.querySelectorAll(".keys-container button")
 let squares = []
 let currentSnake = [2,1,0]
 let direction = 1
@@ -167,6 +168,17 @@ function handleKeyMove(e) {
 
 document.addEventListener('keyup', handleKeyMove)
 
+/*For mobiles */
+
+function handleButtonKeyMove(e) {
+    const { id } = e.currentTarget
+    control(id)
+  }
+
+  keyBtns.forEach((keyBtn) => {
+    keyBtn.addEventListener("mousedown", handleButtonKeyMove)
+    keyBtn.addEventListener("touchstart", handleButtonKeyMove)
+  })
 
 gameField.addEventListener("click", () => {
     startGame()
