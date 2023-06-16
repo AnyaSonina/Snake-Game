@@ -62,8 +62,7 @@ h2 {
   " title title"
    "grid grid"
    "grid grid"
-   "score best"
-   "level speed";
+   "info info";
 }
 
 .title {
@@ -90,20 +89,12 @@ h2 {
   grid-area: grid;
 }
 
-#score {
-  grid-area: score;
-}
-
-#best-score {
-  grid-area: best;
-}
-
-#level {
-  grid-area: level;
-}
-
-#speed {
-  grid-area: speed;
+.game-info {
+  grid-area: info;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap:1em; 
 }
 
 .grid {
@@ -113,16 +104,6 @@ h2 {
   grid: repeat(10, minmax(20px, 1fr))/repeat(10, minmax(20px, 1fr));
   z-index: 1;
   margin: 2em 0;
-}
-
-.game-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: cente;
-  align-items: center;
-  background-color: #e8ddd9;
-  width: 80vmin;
-  margin-top: 1em;
 }
 
 .snake {
@@ -181,10 +162,13 @@ h2 {
     grid-template-columns: minmax(50px,1fr) 6fr;
     grid-template-areas:
     " title title"
-     "score grid"
-     " best grid"
-     "level  grid "
-     "speed  grid";
+     "info grid"
+     "info grid";
+  }
+
+  .game-info {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
   }
 
   .flex {
@@ -200,14 +184,6 @@ h2 {
 }
 
 @media (min-width: 768px) {
-  .grid-container {
-    grid-template-columns: minmax(50px,1fr) 75vmin minmax(50px,1fr);
-    grid-template-areas:
-    " title title title"
-     "score grid level"
-     " best grid speed"
-     "..... grid .....";
-  }
   
   .title {
     align-self: center;
