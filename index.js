@@ -45,17 +45,11 @@ currentSnake.forEach(index => {
     squares[currentSnake[0]].classList.remove("snake")
 })
 
-function startGame() {
-       
-    clearInterval(startId)
-    if(levelOne) {
-        speed = 0.9
-    }else if(level2){
-        speed = 0.8
-    }else{
-        speed = 0.7
-    }
 
+function startGame() {
+    
+    clearInterval(startId)
+   
    gameField.scrollIntoView()
    gameField.focus()
    gameField.style.opacity = "1"
@@ -72,7 +66,8 @@ function startGame() {
     score = 0
     scoreDisplay.textContent = `${score}/14`
     direction = 1
-    intervalTime = 1000
+    level2 ? intervalTime = 600 : intervalTime = 1000
+   
     generateApple()
     currentSnake.forEach(index => squares[index].classList.add('snake'))
     squares[currentSnake[0]].classList.add("head-br")
@@ -196,7 +191,7 @@ function levelTwo() {
     if(score === 1) {
         levelOne = false
         level2 = true
-        popup.innerHTML = `<h2>Congratulations! Follow to the next level</h2>`
+        popup.innerHTML = `<h2>Congratulations! Follow to the Level 2! Now it's faster but walls are permeable.</h2>`
         popup.style.display = "block"
         clearInterval(timerId)
         startId = setInterval(startGame,2000)
