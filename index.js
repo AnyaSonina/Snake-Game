@@ -76,26 +76,40 @@ function startGame() {
   
 }
 
+function finishTheGame() {
+    infoDisplay.style.display = "grid"
+    buttonsDisplay.style.display = "none"
+    gameField.style.opacity = "0.8"
+    document.getElementById("popup").style.display = "block"
+    resultsArr.unshift(score)
+    localStorage.setItem("score", JSON.stringify(resultsArr))
+    storedResults = JSON.parse(localStorage.getItem("score"))
+    storedResults[0] > bestScore ? bestScore=storedResults[0] : bestScore
+    bestResDisplay.innerText = bestScore
+    return clearInterval(timerId)
+}
 
 function move() {
    gameField.focus({block:"center"})
-    if (
-        (currentSnake[0] + width >= width*width && direction === width) || 
-        (currentSnake[0] % width === width-1 && direction === 1) || 
-        (currentSnake[0] % width === 0 && direction === -1) || 
-        (currentSnake[0] - width < 0 && direction === -width) ||
-        squares[currentSnake[0] + direction].classList.contains('snake')
+    if ((currentSnake[0] + width >= width*width && direction === width && levelOne) || 
+        (currentSnake[0] % width === width-1 && direction === 1 && levelOne) || 
+        (currentSnake[0] % width === 0 && direction === -1 && levelOne) || 
+        (currentSnake[0] - width < 0 && direction === -width && levelOne) ||
+        (levelOne  && squares[currentSnake[0] + direction].classList.contains('snake'))
     ) {    
-        infoDisplay.style.display = "grid"
-        buttonsDisplay.style.display = "none"
-        gameField.style.opacity = "0.8"
-        document.getElementById("popup").style.display = "block"
-        resultsArr.unshift(score)
-        localStorage.setItem("score", JSON.stringify(resultsArr))
-        storedResults = JSON.parse(localStorage.getItem("score"))
-        storedResults[0] > bestScore ? bestScore=storedResults[0] : bestScore
-        bestResDisplay.innerText = bestScore
-        return clearInterval(timerId)
+        finishTheGame()
+    }else if(currentSnake[0] - width < 0 && direction === -width && level2) {
+        squares[currentSnake[0]].classList.remove("head-br")
+        squares[currentSnake[0]].classList.remove("snake")
+        currentSnake[0] = width*width-(width-currentSnake[0])
+        squares[currentSnake[0]].classList.add("head-br")
+        squares[currentSnake[0]].classList.add("snake")
+    }else if(currentSnake[0] + width >= width*width && direction === width && level2) {
+        squares[currentSnake[0]].classList.remove("head-br")
+        squares[currentSnake[0]].classList.remove("snake")
+        currentSnake[0] = width*width-currentSnake[0]
+        squares[currentSnake[0]].classList.add("head-br")
+        squares[currentSnake[0]].classList.add("snake")
     }
 
     const tail = currentSnake.pop()
@@ -146,16 +160,16 @@ function generateApple() {
 
 function control(moveDirection) {
     if (moveDirection === "ArrowRight") {
-        direction = 1;
+        direction = 1
       }
       if (moveDirection === "ArrowLeft") {
-        direction = -1;
+        direction = -1
       }
       if (moveDirection === "ArrowUp") {
-        direction = -width;
+        direction = -width
       }
       if (moveDirection === "ArrowDown") {
-        direction = width;
+        direction = width
       }
 }
 
