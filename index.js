@@ -8,6 +8,7 @@ const levelDisplay = document.getElementById("level-display")
 const infoDisplay = document.getElementById("info")
 const buttonsDisplay = document.getElementById("buttons")
 const keyBtns = document.querySelectorAll(".keys-container button")
+let startId = 0
 let squares = []
 let currentSnake = [2,1,0]
 let direction = 1
@@ -45,7 +46,8 @@ currentSnake.forEach(index => {
 })
 
 function startGame() {
-    
+       
+    clearInterval(startId)
     if(levelOne) {
         speed = 0.9
     }else if(level2){
@@ -76,6 +78,7 @@ function startGame() {
     squares[currentSnake[0]].classList.add("head-br")
     squares[currentSnake[0]].style.transform = "rotate(-90deg)"
     timerId = setInterval(move, intervalTime)
+  
 }
 
 
@@ -135,7 +138,8 @@ function move() {
         timerId = setInterval(move, intervalTime)
     }   
     squares[currentSnake[0]].classList.add('snake') 
-
+ 
+    levelTwo()
 }
 
 function generateApple() {
@@ -192,10 +196,10 @@ function levelTwo() {
     if(score === 1) {
         levelOne = false
         level2 = true
-        clearInterval(timerId)
         popup.innerHTML = `<h2>Congratulations! Follow to the next level</h2>`
         popup.style.display = "block"
-        setInterval(startGame,2000)
+        clearInterval(timerId)
+        startId = setInterval(startGame,2000)
     }
 }
 
