@@ -19,8 +19,8 @@ let bestScore = 0
 let resultsArr = []
 let intervalTime = 1000
 let speed = 0.9
-let levelOne = true
-let level2 = false
+let levelOne = false
+let level2 = true
 let levelThree = false
 let timerId = 0
 let storedResults
@@ -76,7 +76,11 @@ function startGame() {
   
 }
 
+
+
+
 function move() {
+    
    gameField.focus({block:"center"})
 
    function hitItself() {
@@ -93,6 +97,7 @@ function move() {
     ) {    
         finishTheGame()
     }
+    //Making wall permeable
    else {
     if(currentSnake[0] - width < 0 && direction === -width && level2) {
         squares[currentSnake[0]].classList.remove("head-br")
@@ -103,13 +108,29 @@ function move() {
     }else if(currentSnake[0] + width >= width*width && direction === width && level2) {
         squares[currentSnake[0]].classList.remove("head-br")
         squares[currentSnake[0]].classList.remove("snake")
-        currentSnake[0] = width*width-currentSnake[0]
+        currentSnake[0] = width - (width*width-currentSnake[0])
         squares[currentSnake[0]].classList.add("head-br")
-        squares[currentSnake[0]].classList.add("snake")
-    }
-
+        squares[currentSnake[0]].classList.add("snake")        
+    }else if(currentSnake[0] % width === width-1 && direction === 1) {
+        console.log(squares[currentSnake[0]])
+        let oldHead = currentSnake[0]
+       let newHead = currentSnake[0] - 9
+        squares[oldHead].classList.remove("head-br")
+        currentSnake.unshift(newHead)
+        squares[newHead].classList.add("head-br")
+        squares[newHead].classList.add("snake")
+        let tail = currentSnake.pop()
+        squares[tail].classList.remove("snake")
+    }else if(currentSnake[0] % width === 0 && direction === -1) {
+        console.log(currentSnake[0])
+        squares[currentSnake[0]].classList.remove("head-br")
+        squares[currentSnake[0]].classList.remove("snake")
+        currentSnake[0] = currentSnake[0] + 9
+        console.log(currentSnake[0])
+         squares[currentSnake[0]].classList.add("head-br")
+         squares[currentSnake[0]].classList.add("snake")        
+     }
     
-
     const tail = currentSnake.pop()
     squares[tail].classList.remove('snake')
     squares[currentSnake[0]].classList.remove("head-br")
