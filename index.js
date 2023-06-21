@@ -76,29 +76,25 @@ function startGame() {
   
 }
 
-function finishTheGame() {
-    infoDisplay.style.display = "grid"
-    buttonsDisplay.style.display = "none"
-    gameField.style.opacity = "0.8"
-    document.getElementById("popup").style.display = "block"
-    resultsArr.unshift(score)
-    localStorage.setItem("score", JSON.stringify(resultsArr))
-    storedResults = JSON.parse(localStorage.getItem("score"))
-    storedResults[0] > bestScore ? bestScore=storedResults[0] : bestScore
-    bestResDisplay.innerText = bestScore
-    return clearInterval(timerId)
-}
-
 function move() {
    gameField.focus({block:"center"})
+
+   function hitItself() {
+       let snakeBody = [...currentSnake]
+       let headSnake = snakeBody.shift()
+       return snakeBody.some(tile => tile === headSnake)
+   }
+    
     if ((currentSnake[0] + width >= width*width && direction === width && levelOne) || 
         (currentSnake[0] % width === width-1 && direction === 1 && levelOne) || 
         (currentSnake[0] % width === 0 && direction === -1 && levelOne) || 
-        (currentSnake[0] - width < 0 && direction === -width && levelOne) ||
-        (levelOne  && squares[currentSnake[0] + direction].classList.contains('snake'))
+        (currentSnake[0] - width < 0 && direction === -width && levelOne) || 
+        (hitItself())
     ) {    
         finishTheGame()
-    }else if(currentSnake[0] - width < 0 && direction === -width && level2) {
+    }
+   else {
+    if(currentSnake[0] - width < 0 && direction === -width && level2) {
         squares[currentSnake[0]].classList.remove("head-br")
         squares[currentSnake[0]].classList.remove("snake")
         currentSnake[0] = width*width-(width-currentSnake[0])
@@ -112,12 +108,15 @@ function move() {
         squares[currentSnake[0]].classList.add("snake")
     }
 
+    
+
     const tail = currentSnake.pop()
     squares[tail].classList.remove('snake')
     squares[currentSnake[0]].classList.remove("head-br")
     
     currentSnake.unshift(currentSnake[0] + direction)
     squares[currentSnake[0]].classList.add("head-br")
+    squares[currentSnake[0]].classList.add('snake') 
     
     if(direction === 1) {
         squares[currentSnake[0]].style.transform = "rotate(-90deg)"
@@ -146,9 +145,10 @@ function move() {
         intervalTime = intervalTime * speed
         timerId = setInterval(move, intervalTime)
     }   
-    squares[currentSnake[0]].classList.add('snake') 
+  
  
     levelTwo()
+}
 }
 
 function generateApple() {
@@ -181,6 +181,19 @@ function handleKeyMove(e) {
 
 document.addEventListener('keyup', handleKeyMove)
 
+function finishTheGame() {
+    infoDisplay.style.display = "grid"
+    buttonsDisplay.style.display = "none"
+    gameField.style.opacity = "0.8"
+    document.getElementById("popup").style.display = "block"
+    resultsArr.unshift(score)
+    localStorage.setItem("score", JSON.stringify(resultsArr))
+    storedResults = JSON.parse(localStorage.getItem("score"))
+    storedResults[0] > bestScore ? bestScore=storedResults[0] : bestScore
+    bestResDisplay.innerText = bestScore
+    return clearInterval(timerId)
+}
+
 /*For mobiles */
 
 function handleButtonKeyMove(e) {
@@ -205,7 +218,7 @@ function levelTwo() {
     if(score === 1) {
         levelOne = false
         level2 = true
-        popup.innerHTML = `<h2>Congratulations! Follow to the Level 2! Now it's faster but walls are permeable.</h2>`
+        popup.innerHTML = `<h2>Congratulations! Follow to the Level 2!</h2>`
         popup.style.display = "block"
         clearInterval(timerId)
         startId = setInterval(startGame,2000)
