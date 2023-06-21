@@ -23,7 +23,10 @@ let levelOne = false
 let level2 = true
 let levelThree = false
 let timerId = 0
+let start = false
 let storedResults
+
+
 
 
 
@@ -47,7 +50,9 @@ currentSnake.forEach(index => {
 
 
 function startGame() {
-    
+   
+   document.removeEventListener('keyup', startGame)
+    document.addEventListener('keyup', handleKeyMove)
     clearInterval(startId)
    
    gameField.scrollIntoView()
@@ -97,7 +102,7 @@ function move() {
     ) {    
         finishTheGame()
     }
-    //Making wall permeable
+    //Making walls permeable
    else {
     if(currentSnake[0] - width < 0 && direction === -width && level2) {
         squares[currentSnake[0]].classList.remove("head-br")
@@ -200,7 +205,7 @@ function handleKeyMove(e) {
     control(e.key)
 }
 
-document.addEventListener('keyup', handleKeyMove)
+
 
 function finishTheGame() {
     infoDisplay.style.display = "grid"
@@ -212,12 +217,15 @@ function finishTheGame() {
     storedResults = JSON.parse(localStorage.getItem("score"))
     storedResults[0] > bestScore ? bestScore=storedResults[0] : bestScore
     bestResDisplay.innerText = bestScore
+    document.removeEventListener('keyup', handleKeyMove)
+    document.addEventListener('keyup', startGame)
     return clearInterval(timerId)
 }
 
 /*For mobiles */
 
 function handleButtonKeyMove(e) {
+    start=true
     const { id } = e.currentTarget
     control(id)
   }
@@ -245,7 +253,7 @@ function levelTwo() {
         startId = setInterval(startGame,2000)
     }
 }
-
+document.addEventListener('keyup', startGame)
 
 //create levels with a different starting speed
 //the last level will have the fastest speed but the walls will be permeable
