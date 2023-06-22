@@ -19,13 +19,19 @@ let bestScore = 0
 let resultsArr = []
 let intervalTime = 1000
 let speed = 0.9
-let levelOne = false
-let level2 = true
+let levelOne = true
+let level2 = false
 let levelThree = false
 let timerId = 0
 let start = false
 let storedResults
+let targetScore 
 
+if(levelOne) {
+    targetScore = 2
+}else if(level2) {
+    targetScore = 4
+}
 
 
 
@@ -53,8 +59,8 @@ currentSnake.forEach(index => {
 function startGame() {
    
    document.removeEventListener('keyup', startGame)
-    document.addEventListener('keyup', handleKeyMove)
-    clearInterval(startId)
+   document.addEventListener('keyup', handleKeyMove)
+   clearInterval(startId)
    
    gameField.scrollIntoView()
    gameField.focus()
@@ -64,13 +70,12 @@ function startGame() {
     currentSnake.forEach(index => squares[index].classList.remove('snake'))
 
     squares[appleIndex].classList.remove("apple")
-
     squares[currentSnake[0]].classList.remove("head-br")
   
     clearInterval(timerId)
     currentSnake = [2,1,0]
     score = 0
-    scoreDisplay.textContent = `${score}/14`
+    scoreDisplay.textContent = `${targetScore}`
     direction = 1
     level2 ? intervalTime = 600 : intervalTime = 1000
    
@@ -156,8 +161,8 @@ function move() {
         squares[tail].classList.add('snake')
         currentSnake.push(tail)
         generateApple()
-        score++
-        scoreDisplay.textContent = `${score}/14`
+        targetScore--
+        scoreDisplay.textContent = `${targetScore}`
         clearInterval(timerId)
         intervalTime = intervalTime * speed
         timerId = setInterval(move, intervalTime)
@@ -235,7 +240,7 @@ gameField.addEventListener("click", () => {
 })
 
 function levelTwo() {
-    if(score === 1) {
+    if(targetScore === 0 && levelOne) {
         levelOne = false
         level2 = true
         popup.innerHTML = `<h2>Congratulations! Follow to the Level 2!</h2>`
@@ -245,7 +250,7 @@ function levelTwo() {
         startId = setInterval(startGame,2000)
     }
 }
-document.addEventListener('keyup', startGame)
+document.addEventListener('keyup', startGame(14))
 
 
 //depending on the best result, restart the game from the suitable level
