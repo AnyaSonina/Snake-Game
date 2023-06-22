@@ -14,19 +14,17 @@ let currentSnake = [2,1,0]
 let direction = 1
 const width = 10
 let appleIndex = 0
-let score = 0
 let bestScore = 0
 let resultsArr = []
 let intervalTime = 1000
 let speed = 0.9
-let levelOne = false
-let level2 = true
+let levelOne = true
+let level2 = false
 let levelThree = false
 let timerId = 0
 let start = false
 let storedResults
-
-
+let targetScore = 2
 
 
 
@@ -68,8 +66,7 @@ function startGame() {
   
     clearInterval(timerId)
     currentSnake = [2,1,0]
-    score = 0
-    scoreDisplay.textContent = `${score}/14`
+    scoreDisplay.textContent = `${targetScore}`
     direction = 1
     level2 ? intervalTime = 600 : intervalTime = 1000
    
@@ -155,8 +152,8 @@ function move() {
         squares[tail].classList.add('snake')
         currentSnake.push(tail)
         generateApple()
-        score++
-        scoreDisplay.textContent = `${score}/14`
+        targetScore--
+        scoreDisplay.textContent = `${targetScore}`
         clearInterval(timerId)
         intervalTime = intervalTime * speed
         timerId = setInterval(move, intervalTime)
@@ -234,11 +231,13 @@ gameField.addEventListener("click", () => {
 })
 
 function levelTwo() {
-    if(score === 1) {
+    if(targetScore === 0 && levelOne) {
+        targetScore=2
         levelOne = false
         level2 = true
         popup.innerHTML = `<h2>Congratulations! Follow to the Level 2!</h2>`
         popup.style.display = "block"
+        levelDisplay.textContent = "2"
         clearInterval(timerId)
         startId = setInterval(startGame,2000)
     }
