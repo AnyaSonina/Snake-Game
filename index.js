@@ -56,7 +56,7 @@ function startGame() {
    gameField.scrollIntoView()
    gameField.focus()
    gameField.style.opacity = "1"
-   document.getElementById("popup").style.display = "none"
+   popup.style.display = "none"
    
     currentSnake.forEach(index => squares[index].classList.remove('snake'))
 
@@ -89,21 +89,28 @@ function move() {
    function hitItself() {
        let snakeBody = [...currentSnake]
        let headSnake = snakeBody.shift()
+       popup.innerHTML = `<h3>Oops, you hit yourself! Try again!</h3>`
        return snakeBody.some(tile => tile === headSnake)
    }
-    
+
+   let wall = false
+   function hitTheWall() {
     if ((currentSnake[0] + width >= width*width && direction === width && levelOne) || 
         (currentSnake[0] % width === width-1 && direction === 1 && levelOne) || 
         (currentSnake[0] % width === 0 && direction === -1 && levelOne) || 
-        (currentSnake[0] - width < 0 && direction === -width && levelOne) || 
-        (hitItself())
-    ) {    
+        (currentSnake[0] - width < 0 && direction === -width && levelOne)) {
+            wall = true
+            popup.innerHTML = `<h3>Oops, you hit the wall! Try again!</h3>`
+    }
+        return wall
+   }
+    
+    if(hitTheWall() || hitItself()) {    
         finishTheGame()
     }
-
    else {
        //Making walls permeable on level2
-       function permeableWalls(newHeadval) {
+    function permeableWalls(newHeadval) {
         let oldHead = currentSnake[0]
         let newHead = newHeadval
         squares[oldHead].classList.remove("head-br")
@@ -157,6 +164,7 @@ function move() {
         clearInterval(timerId)
         intervalTime = intervalTime * speed
         timerId = setInterval(move, intervalTime)
+        console.log(intervalTime)
     }   
   
  
@@ -198,7 +206,7 @@ function finishTheGame() {
     infoDisplay.style.display = "grid"
     buttonsDisplay.style.display = "none"
     gameField.style.opacity = "0.8"
-    document.getElementById("popup").style.display = "block"
+    popup.style.display = "block"
     resultsArr.unshift(score)
     localStorage.setItem("score", JSON.stringify(resultsArr))
     storedResults = JSON.parse(localStorage.getItem("score"))
