@@ -104,18 +104,8 @@ function move() {
     }
 
    else {
-
-    const tail = currentSnake.pop()
-    squares[tail].classList.remove('snake')
-    squares[currentSnake[0]].classList.remove("head-br")
-    
-    currentSnake.unshift(currentSnake[0] + direction)
-    squares[currentSnake[0]].classList.add("head-br")
-    squares[currentSnake[0]].classList.add('snake') 
-
-
-    //Making walls permeable on level2
-    function permeableWalls(newHeadval) {
+       //Making walls permeable on level2
+       function permeableWalls(newHeadval) {
         let oldHead = currentSnake[0]
         let newHead = newHeadval
         squares[oldHead].classList.remove("head-br")
@@ -134,8 +124,14 @@ function move() {
         permeableWalls(currentSnake[0] - 9) 
     }else if(currentSnake[0] % width === 0 && direction === -1) {
         permeableWalls(currentSnake[0] + 9) 
-    }
-       
+    }else{
+        const tail = currentSnake.pop()
+        squares[tail].classList.remove('snake')
+        squares[currentSnake[0]].classList.remove("head-br")    
+        currentSnake.unshift(currentSnake[0] + direction)
+        squares[currentSnake[0]].classList.add("head-br")
+        squares[currentSnake[0]].classList.add('snake') 
+    }       
     
     if(direction === 1) {
         squares[currentSnake[0]].style.transform = "rotate(-90deg)"
