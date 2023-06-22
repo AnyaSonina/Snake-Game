@@ -102,40 +102,9 @@ function move() {
     ) {    
         finishTheGame()
     }
-    //Making walls permeable
+
    else {
-    if(currentSnake[0] - width < 0 && direction === -width && level2) {
-        squares[currentSnake[0]].classList.remove("head-br")
-        squares[currentSnake[0]].classList.remove("snake")
-        currentSnake[0] = width*width-(width-currentSnake[0])
-        squares[currentSnake[0]].classList.add("head-br")
-        squares[currentSnake[0]].classList.add("snake")
-    }else if(currentSnake[0] + width >= width*width && direction === width && level2) {
-        squares[currentSnake[0]].classList.remove("head-br")
-        squares[currentSnake[0]].classList.remove("snake")
-        currentSnake[0] = width - (width*width-currentSnake[0])
-        squares[currentSnake[0]].classList.add("head-br")
-        squares[currentSnake[0]].classList.add("snake")        
-    }else if(currentSnake[0] % width === width-1 && direction === 1) {
-        console.log(squares[currentSnake[0]])
-        let oldHead = currentSnake[0]
-       let newHead = currentSnake[0] - 9
-        squares[oldHead].classList.remove("head-br")
-        currentSnake.unshift(newHead)
-        squares[newHead].classList.add("head-br")
-        squares[newHead].classList.add("snake")
-        let tail = currentSnake.pop()
-        squares[tail].classList.remove("snake")
-    }else if(currentSnake[0] % width === 0 && direction === -1) {
-        console.log(currentSnake[0])
-        squares[currentSnake[0]].classList.remove("head-br")
-        squares[currentSnake[0]].classList.remove("snake")
-        currentSnake[0] = currentSnake[0] + 9
-        console.log(currentSnake[0])
-         squares[currentSnake[0]].classList.add("head-br")
-         squares[currentSnake[0]].classList.add("snake")        
-     }
-    
+
     const tail = currentSnake.pop()
     squares[tail].classList.remove('snake')
     squares[currentSnake[0]].classList.remove("head-br")
@@ -143,6 +112,30 @@ function move() {
     currentSnake.unshift(currentSnake[0] + direction)
     squares[currentSnake[0]].classList.add("head-br")
     squares[currentSnake[0]].classList.add('snake') 
+
+
+    //Making walls permeable on level2
+    function permeableWalls(newHeadval) {
+        let oldHead = currentSnake[0]
+        let newHead = newHeadval
+        squares[oldHead].classList.remove("head-br")
+        currentSnake.unshift(newHead)
+        squares[newHead].classList.add("head-br")
+        squares[newHead].classList.add("snake")
+        let tail = currentSnake.pop()
+        squares[tail].classList.remove("snake")  
+    }
+
+    if(currentSnake[0] - width < 0 && direction === -width) {
+        permeableWalls(width*width-(width-currentSnake[0]))
+    }else if(currentSnake[0] + width >= width*width && direction === width) {
+        permeableWalls(width - (width*width-currentSnake[0]))              
+    }else if(currentSnake[0] % width === width-1 && direction === 1) {
+        permeableWalls(currentSnake[0] - 9) 
+    }else if(currentSnake[0] % width === 0 && direction === -1) {
+        permeableWalls(currentSnake[0] + 9) 
+    }
+       
     
     if(direction === 1) {
         squares[currentSnake[0]].style.transform = "rotate(-90deg)"
