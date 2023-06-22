@@ -244,9 +244,14 @@ function levelTwo() {
 }
 document.addEventListener('keyup', startGame)
 
-//create levels with a different starting speed
-//the last level will have the fastest speed but the walls will be permeable
+
 //depending on the best result, restart the game from the suitable level
-//change the design of "game-info section" name at the top and different features around
-//get rid of stat button (just notify the user to click on the field)
-/*Displaying keys-container on smaller screens on the start of the game */
+//notify the user how he can start the game
+
+/*create level3 with obstacles
+renevew the level info on different levels
+center the popup div
+apply the "cange the mode" feature
+create root colors and create the different styles of the game
+Make the buttons appear on a key stroke
+*/
