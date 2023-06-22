@@ -30,6 +30,7 @@ let storedResults
 
 
 
+
 function createGrid() {
     
     for (let i=0; i < width*width; i++) {
@@ -87,6 +88,7 @@ function startGame() {
 function move() {
     
    gameField.focus({block:"center"})
+   
 
    function hitItself() {
        let snakeBody = [...currentSnake]
@@ -149,7 +151,7 @@ function move() {
 
  
     if (squares[currentSnake[0]].classList.contains('apple')) {
-       
+        const tail = currentSnake.pop()
         squares[currentSnake[0]].classList.remove('apple')
         squares[tail].classList.add('snake')
         currentSnake.push(tail)
@@ -238,6 +240,7 @@ function levelTwo() {
         level2 = true
         popup.innerHTML = `<h2>Congratulations! Follow to the Level 2!</h2>`
         popup.style.display = "block"
+        // levelDisplay.textContent = "2"
         clearInterval(timerId)
         startId = setInterval(startGame,2000)
     }
