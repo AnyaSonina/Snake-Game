@@ -19,19 +19,12 @@ let bestScore = 0
 let resultsArr = []
 let intervalTime = 1000
 let speed = 0.9
-let levelOne = true
-let level2 = false
+let levelOne = false
+let level2 = true
 let levelThree = false
 let timerId = 0
 let start = false
 let storedResults
-let targetScore 
-
-if(levelOne) {
-    targetScore = 2
-}else if(level2) {
-    targetScore = 4
-}
 
 
 
@@ -59,8 +52,8 @@ currentSnake.forEach(index => {
 function startGame() {
    
    document.removeEventListener('keyup', startGame)
-   document.addEventListener('keyup', handleKeyMove)
-   clearInterval(startId)
+    document.addEventListener('keyup', handleKeyMove)
+    clearInterval(startId)
    
    gameField.scrollIntoView()
    gameField.focus()
@@ -70,12 +63,13 @@ function startGame() {
     currentSnake.forEach(index => squares[index].classList.remove('snake'))
 
     squares[appleIndex].classList.remove("apple")
+
     squares[currentSnake[0]].classList.remove("head-br")
   
     clearInterval(timerId)
     currentSnake = [2,1,0]
     score = 0
-    scoreDisplay.textContent = `${targetScore}`
+    scoreDisplay.textContent = `${score}/14`
     direction = 1
     level2 ? intervalTime = 600 : intervalTime = 1000
    
@@ -93,7 +87,7 @@ function startGame() {
 function move() {
     
    gameField.focus({block:"center"})
-   
+   let tail
 
    function hitItself() {
        let snakeBody = [...currentSnake]
@@ -119,7 +113,7 @@ function move() {
         currentSnake.unshift(newHead)
         squares[newHead].classList.add("head-br")
         squares[newHead].classList.add("snake")
-        let tail = currentSnake.pop()
+        tail = currentSnake.pop()
         squares[tail].classList.remove("snake")  
     }
 
@@ -132,7 +126,7 @@ function move() {
     }else if(currentSnake[0] % width === 0 && direction === -1) {
         permeableWalls(currentSnake[0] + 9) 
     }else{
-        const tail = currentSnake.pop()
+        tail = currentSnake.pop()
         squares[tail].classList.remove('snake')
         squares[currentSnake[0]].classList.remove("head-br")    
         currentSnake.unshift(currentSnake[0] + direction)
@@ -156,13 +150,13 @@ function move() {
 
  
     if (squares[currentSnake[0]].classList.contains('apple')) {
-        const tail = currentSnake.pop()
+       
         squares[currentSnake[0]].classList.remove('apple')
         squares[tail].classList.add('snake')
         currentSnake.push(tail)
         generateApple()
-        targetScore--
-        scoreDisplay.textContent = `${targetScore}`
+        score++
+        scoreDisplay.textContent = `${score}/14`
         clearInterval(timerId)
         intervalTime = intervalTime * speed
         timerId = setInterval(move, intervalTime)
@@ -240,17 +234,16 @@ gameField.addEventListener("click", () => {
 })
 
 function levelTwo() {
-    if(targetScore === 0 && levelOne) {
+    if(score === 1) {
         levelOne = false
         level2 = true
         popup.innerHTML = `<h2>Congratulations! Follow to the Level 2!</h2>`
         popup.style.display = "block"
-        // levelDisplay.textContent = "2"
         clearInterval(timerId)
         startId = setInterval(startGame,2000)
     }
 }
-document.addEventListener('keyup', startGame(14))
+document.addEventListener('keyup', startGame)
 
 
 //depending on the best result, restart the game from the suitable level
