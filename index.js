@@ -14,6 +14,7 @@ let currentSnake = [2,1,0]
 let direction = 1
 const width = 10
 let appleIndex = 0
+let score = 0
 let bestScore = 0
 let resultsArr = []
 let intervalTime = 1000
@@ -159,6 +160,7 @@ function move() {
         squares[tail].classList.add('snake')
         currentSnake.push(tail)
         generateApple()
+        score++
         targetScore--
         scoreDisplay.textContent = `${targetScore}`
         clearInterval(timerId)
