@@ -22,7 +22,6 @@ let speed = 0.9
 let level1 = true
 let level2 = false
 let level3=false
-let levelThree = false
 let timerId = 0
 let start = false
 let storedResults
@@ -70,7 +69,11 @@ function startGame() {
     currentSnake = [2,1,0]
     scoreDisplay.textContent = `${targetScore}`
     direction = 1
-    level2 ? intervalTime = 600 : intervalTime = 1000
+
+    intervalTime = level1 ? 1000 : level2 ? 600 : level3 ? 500 : 0
+
+    
+    // level2 ? intervalTime = 600 : intervalTime = 1000
    
     generateApple()
     currentSnake.forEach(index => squares[index].classList.add('snake'))
@@ -259,9 +262,9 @@ function levelThree() {
     level1 = false
     level2 = false
     level3 = true
-    popup.innerHTML = `<h3>Congratulations! Follow to the Level 2!</h3>`
+    popup.innerHTML = `<h3>Congratulations! Follow to the Level 3!</h3>`
     popup.style.display = "block"
-    levelDisplay.textContent = "2"
+    levelDisplay.textContent = "3"
     clearInterval(timerId)
     startId = setInterval(startGame,2000)
 
