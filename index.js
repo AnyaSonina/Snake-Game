@@ -19,8 +19,9 @@ let bestScore = 0
 let resultsArr = []
 let intervalTime = 1000
 let speed = 0.9
-let levelOne = true
+let level1 = true
 let level2 = false
+let level3=false
 let levelThree = false
 let timerId = 0
 let start = false
@@ -81,7 +82,6 @@ function startGame() {
 
 
 
-
 function move() {
     
    gameField.focus({block:"center"})
@@ -96,10 +96,10 @@ function move() {
 
    let wall = false
    function hitTheWall() {
-    if ((currentSnake[0] + width >= width*width && direction === width && levelOne) || 
-        (currentSnake[0] % width === width-1 && direction === 1 && levelOne) || 
-        (currentSnake[0] % width === 0 && direction === -1 && levelOne) || 
-        (currentSnake[0] - width < 0 && direction === -width && levelOne)) {
+    if ((currentSnake[0] + width >= width*width && direction === width && level1) || 
+        (currentSnake[0] % width === width-1 && direction === 1 && level1) || 
+        (currentSnake[0] % width === 0 && direction === -1 && level1) || 
+        (currentSnake[0] - width < 0 && direction === -width && level1)) {
             wall = true
             popup.innerHTML = `<h3>Oops, you hit the wall! Try again!</h3>`
     }
@@ -155,7 +155,6 @@ function move() {
 
  
     if (squares[currentSnake[0]].classList.contains('apple')) {
-       
         squares[currentSnake[0]].classList.remove('apple')
         squares[tail].classList.add('snake')
         currentSnake.push(tail)
@@ -167,10 +166,13 @@ function move() {
         intervalTime = intervalTime * speed
         timerId = setInterval(move, intervalTime)
         console.log(intervalTime)
-    }   
-  
+    }    
  
-    levelTwo()
+    if(targetScore===0 && level1) {
+        levelTwo()
+    }else if(targetScore === 0 && level2) {
+        levelThree()
+    }
 }
 }
 
@@ -241,17 +243,30 @@ gameField.addEventListener("click", () => {
 })
 
 function levelTwo() {
-    if(targetScore === 0 && levelOne) {
-        targetScore=2
-        levelOne = false
-        level2 = true
-        popup.innerHTML = `<h2>Congratulations! Follow to the Level 2!</h2>`
-        popup.style.display = "block"
-        levelDisplay.textContent = "2"
-        clearInterval(timerId)
-        startId = setInterval(startGame,2000)
-    }
+    targetScore=2
+    level1 = false
+    level2 = true
+    popup.innerHTML = `<h3>Congratulations! Follow to the Level 2!</h3>`
+    popup.style.display = "block"
+    levelDisplay.textContent = "2"
+    clearInterval(timerId)
+    startId = setInterval(startGame,2000)
+    
 }
+
+function levelThree() {
+    targetScore=2
+    level1 = false
+    level2 = false
+    level3 = true
+    popup.innerHTML = `<h3>Congratulations! Follow to the Level 2!</h3>`
+    popup.style.display = "block"
+    levelDisplay.textContent = "2"
+    clearInterval(timerId)
+    startId = setInterval(startGame,2000)
+
+}
+
 document.addEventListener('keyup', startGame)
 
 
@@ -263,5 +278,5 @@ renevew the level info on different levels
 center the popup div
 apply the "cange the mode" feature
 create root colors and create the different styles of the game
-Make the buttons appear on a key stroke
+refactor the level function and make it universal 
 */
