@@ -23,10 +23,12 @@ let level2 = false
 let level3 = false
 let intervalTime = level1 ? 1000 : level2 ? 500 : 500
 let timerId = 0
-let start = false
+let running = false
 let storedResults
 let targetScore = 2
 let gameOver = false
+
+
 
 
 
@@ -49,8 +51,11 @@ currentSnake.forEach(index => {
 
 
 function startGame() {
-    gameOver = false
-      
+    gameOver = false    
+    score=0
+    localStorage.clear()
+    bestResDisplay.innerText = 0
+    
     document.removeEventListener('keyup', startGame)
     document.addEventListener('keyup', handleKeyMove)
     clearInterval(startId)
@@ -84,7 +89,7 @@ function startGame() {
 
 
 function move() {
-    
+    running = true
    gameField.focus({block:"center"})
    let tail
 
@@ -107,8 +112,13 @@ function move() {
         return wall
    }
     
-    if(hitTheWall() || hitItself()) {    
-        finishTheGame()
+    if(hitTheWall() || hitItself()) {
+       resultsArr.unshift(score)
+       localStorage.setItem("score", JSON.stringify(resultsArr))
+       storedResults = JSON.parse(localStorage.getItem("score"))
+       storedResults[0] > bestScore ? bestScore=storedResults[0] : bestScore
+       bestResDisplay.innerText = bestScore  
+       finishTheGame()
     }
    else {
        //Making walls permeable on level2
@@ -155,7 +165,7 @@ function move() {
    })
 
  
-    if (squares[currentSnake[0]].classList.contains('apple') && !gameOver) {
+    if (squares[currentSnake[0]].classList.contains('apple') && running) {
         squares[currentSnake[0]].classList.remove('apple')
         squares[tail].classList.add('snake')
         currentSnake.push(tail)
@@ -166,15 +176,27 @@ function move() {
         clearInterval(timerId)
         intervalTime = intervalTime * speed
         timerId = setInterval(move, intervalTime)
-        console.log(intervalTime)
-    }    
- 
+        
+    }
+    
+    
     if(targetScore===0 && level1) {
-        levelTwo()
-    }else if(targetScore === 0 && level2) {
-        gameOver = true
-       finishTheGame()
-    }    
+        resultsArr.unshift(score)
+       localStorage.setItem("score", JSON.stringify(resultsArr))
+       storedResults = JSON.parse(localStorage.getItem("score"))
+       storedResults[0] > bestScore ? bestScore=storedResults[0] : bestScore
+       bestResDisplay.innerText = bestScore 
+       score = 0
+       levelTwo()
+    
+    }else if(targetScore === 0 && level2){
+        resultsArr.unshift(score)
+        localStorage.setItem("score", JSON.stringify(resultsArr))
+        storedResults = JSON.parse(localStorage.getItem("score"))
+        storedResults[0] > bestScore ? bestScore=storedResults[0] : bestScore
+        bestResDisplay.innerText = bestScore  
+        finishTheGame()    
+    }
 }
 }
 
@@ -207,22 +229,24 @@ function handleKeyMove(e) {
 }
 
 function finishTheGame() {
+    running = false
     targetScore = level1 ? 2 : 3
     intervalTime = level1 ? 1000 : level2 ? 500 : 500 
+
     infoDisplay.style.display = "grid"
     buttonsDisplay.style.display = "none"
     gameField.style.opacity = "0.8"
     popup.style.display = "block"
-    resultsArr.unshift(score)
-    localStorage.setItem("score", JSON.stringify(resultsArr))
-    storedResults = JSON.parse(localStorage.getItem("score"))
-    storedResults[0] > bestScore ? bestScore=storedResults[0] : bestScore
-    bestResDisplay.innerText = bestScore
+
     document.removeEventListener('keyup', handleKeyMove)
     document.addEventListener('keyup', startGame)
     
     if(gameOver) {
         popup.innerHTML = `<h3>Congratulations! The game is over!</h3>`
+        level1=true
+        level2=false
+        document.removeEventListener('keyup', handleKeyMove)
+        document.addEventListener('keyup', startGame)
     }
     return clearInterval(timerId)
 }
@@ -230,7 +254,7 @@ function finishTheGame() {
 /*For mobiles */
 
 function handleButtonKeyMove(e) {
-    start=true
+    running=true
     const { id } = e.currentTarget
     control(id)
   }
@@ -256,6 +280,7 @@ function levelTwo() {
     popup.innerHTML = `<h3>Congratulations! Follow to the Level 2!</h3>`
     popup.style.display = "block"
     levelDisplay.textContent = "2"
+  
     clearInterval(timerId)
     startId = setInterval(startGame,2000)
 }
