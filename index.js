@@ -20,15 +20,14 @@ let resultsArr = []
 let speed = 0.9
 let level1 = true
 let level2 = false
-let level3 = false
-let intervalTime = level1 ? 1000 : level2 ? 500 : 500
+
 let timerId = 0
 let running = false
 let storedResults
-let targetScore = 4
+let targetScore = 1
 let gameOver = false
 
-
+let intervalTime
 
 
 
@@ -51,6 +50,7 @@ currentSnake.forEach(index => {
 
 
 function startGame() {
+    intervalTime = level1 ? 900 : level2 ? 500 : 9000
     gameOver = false    
     score=0
     localStorage.clear()
@@ -244,11 +244,12 @@ function finishTheGame() {
     document.addEventListener('keyup', startGame)
     
     if(gameOver) {
-        popup.innerHTML = `<h3>Congratulations! The game is over!</h3>`
-        level1=true
-        level2=false
-        document.removeEventListener('keyup', handleKeyMove)
-        document.addEventListener('keyup', startGame)
+         popup.innerHTML = `<h3>Congratulations! The game is over!</h3>`
+        // level1=true
+        // level2=false
+        // document.removeEventListener('keyup', handleKeyMove)
+        // document.addEventListener('keyup', startGame)
+        levelOne()
     }
     return clearInterval(timerId)
 }
@@ -275,10 +276,9 @@ gameField.addEventListener("click", () => {
 })
 
 function levelTwo() {
-    targetScore=6
+    targetScore=2
     level2 = true
     level1 = false
-    level3 = false
     popup.innerHTML = `<h3>Congratulations! Follow to the Level 2!</h3>`
     popup.style.display = "block"
     levelDisplay.textContent = "2"
@@ -288,12 +288,11 @@ function levelTwo() {
 }
 
 function levelOne() {
-    targetScore=4
+    targetScore=1
     level2 = false
     level1 = true
-    level3 = false
     levelDisplay.textContent = "1"
-    clearInterval(timerId)
+    
     startId = setInterval(startGame,2000)
 }
 
