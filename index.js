@@ -25,7 +25,7 @@ let intervalTime = level1 ? 1000 : level2 ? 500 : 500
 let timerId = 0
 let running = false
 let storedResults
-let targetScore = 2
+let targetScore = 4
 let gameOver = false
 
 
@@ -89,6 +89,7 @@ function startGame() {
 
 
 function move() {
+    console.log(intervalTime)
     running = true
    gameField.focus({block:"center"})
    let tail
@@ -190,6 +191,7 @@ function move() {
        levelTwo()
     
     }else if(targetScore === 0 && level2){
+        gameOver = true
         resultsArr.unshift(score)
         localStorage.setItem("score", JSON.stringify(resultsArr))
         storedResults = JSON.parse(localStorage.getItem("score"))
@@ -230,7 +232,7 @@ function handleKeyMove(e) {
 
 function finishTheGame() {
     running = false
-    targetScore = level1 ? 2 : 3
+    targetScore = level1 ? 4 : 6
     intervalTime = level1 ? 1000 : level2 ? 500 : 500 
 
     infoDisplay.style.display = "grid"
@@ -273,7 +275,7 @@ gameField.addEventListener("click", () => {
 })
 
 function levelTwo() {
-    targetScore=3
+    targetScore=6
     level2 = true
     level1 = false
     level3 = false
@@ -286,7 +288,7 @@ function levelTwo() {
 }
 
 function levelOne() {
-    targetScore=2
+    targetScore=4
     level2 = false
     level1 = true
     level3 = false
