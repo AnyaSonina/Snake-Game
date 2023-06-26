@@ -17,29 +17,29 @@ let appleIndex = 0
 let score = 0
 let bestScore = 0
 let resultsArr = []
-let intervalTime = 1000
 let speed = 0.9
 let level1 = true
 let level2 = false
-let level3=false
+let level3 = false
+let intervalTime = level1 ? 1000 : level2 ? 500 : 500
 let timerId = 0
 let start = false
 let storedResults
 let targetScore = 2
+let gameOver = false
 
 
 
-function createGrid() {
-    
+function createGrid() {    
     for (let i=0; i < width*width; i++) {
-        const square = document.createElement('div')
-        square.classList.add('square')
-        grid.appendChild(square)
+       const square = document.createElement('div')
+       square.classList.add('square')
+       grid.appendChild(square)
        squares.push(square)
     }    
     squares[currentSnake[0]].classList.add("head-br")
     squares[currentSnake[0]].style.transform = "rotate(-90deg)"
- }
+}
 createGrid()
 
 currentSnake.forEach(index => {
@@ -49,8 +49,9 @@ currentSnake.forEach(index => {
 
 
 function startGame() {
-   
-   document.removeEventListener('keyup', startGame)
+    gameOver = false
+      
+    document.removeEventListener('keyup', startGame)
     document.addEventListener('keyup', handleKeyMove)
     clearInterval(startId)
    
@@ -70,10 +71,8 @@ function startGame() {
     scoreDisplay.textContent = `${targetScore}`
     direction = 1
 
-    intervalTime = level1 ? 1000 : level2 ? 600 : level3 ? 500 : 0
-
     
-    // level2 ? intervalTime = 600 : intervalTime = 1000
+    console.log(intervalTime)
    
     generateApple()
     currentSnake.forEach(index => squares[index].classList.add('snake'))
@@ -82,7 +81,6 @@ function startGame() {
     timerId = setInterval(move, intervalTime)
   
 }
-
 
 
 function move() {
@@ -125,7 +123,7 @@ function move() {
         squares[tail].classList.remove("snake")  
     }
 
-    if(currentSnake[0] - width < 0 && direction === -width) {
+    if(currentSnake[0] - width < 0 && direction === -width ) {
         permeableWalls(width*width-(width-currentSnake[0]))
     }else if(currentSnake[0] + width >= width*width && direction === width) {
         permeableWalls(width - (width*width-currentSnake[0]))              
@@ -157,7 +155,7 @@ function move() {
    })
 
  
-    if (squares[currentSnake[0]].classList.contains('apple')) {
+    if (squares[currentSnake[0]].classList.contains('apple') && !gameOver) {
         squares[currentSnake[0]].classList.remove('apple')
         squares[tail].classList.add('snake')
         currentSnake.push(tail)
@@ -174,8 +172,9 @@ function move() {
     if(targetScore===0 && level1) {
         levelTwo()
     }else if(targetScore === 0 && level2) {
-        levelThree()
-    }
+        gameOver = true
+       finishTheGame()
+    }    
 }
 }
 
@@ -207,9 +206,9 @@ function handleKeyMove(e) {
     control(e.key)
 }
 
-
-
 function finishTheGame() {
+    targetScore = level1 ? 2 : 3
+    intervalTime = level1 ? 1000 : level2 ? 500 : 500 
     infoDisplay.style.display = "grid"
     buttonsDisplay.style.display = "none"
     gameField.style.opacity = "0.8"
@@ -221,6 +220,10 @@ function finishTheGame() {
     bestResDisplay.innerText = bestScore
     document.removeEventListener('keyup', handleKeyMove)
     document.addEventListener('keyup', startGame)
+    
+    if(gameOver) {
+        popup.innerHTML = `<h3>Congratulations! The game is over!</h3>`
+    }
     return clearInterval(timerId)
 }
 
@@ -246,29 +249,27 @@ gameField.addEventListener("click", () => {
 })
 
 function levelTwo() {
-    targetScore=2
-    level1 = false
+    targetScore=3
     level2 = true
+    level1 = false
+    level3 = false
     popup.innerHTML = `<h3>Congratulations! Follow to the Level 2!</h3>`
     popup.style.display = "block"
     levelDisplay.textContent = "2"
     clearInterval(timerId)
     startId = setInterval(startGame,2000)
-    
 }
 
-function levelThree() {
+function levelOne() {
     targetScore=2
-    level1 = false
     level2 = false
-    level3 = true
-    popup.innerHTML = `<h3>Congratulations! Follow to the Level 3!</h3>`
-    popup.style.display = "block"
-    levelDisplay.textContent = "3"
+    level1 = true
+    level3 = false
+    levelDisplay.textContent = "1"
     clearInterval(timerId)
     startId = setInterval(startGame,2000)
-
 }
+
 
 document.addEventListener('keyup', startGame)
 
