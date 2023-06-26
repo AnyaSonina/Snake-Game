@@ -97,7 +97,7 @@ function move() {
    function hitItself() {
        let snakeBody = [...currentSnake]
        let headSnake = snakeBody.shift()
-       popup.innerHTML = `<h3>Oops, you hit yourself! Try again!</h3>`
+       popup.innerHTML = `<h2>Oops, you hit yourself! Try again!</h2>`
        return snakeBody.some(tile => tile === headSnake)
    }
 
@@ -108,7 +108,7 @@ function move() {
         (currentSnake[0] % width === 0 && direction === -1 && level1) || 
         (currentSnake[0] - width < 0 && direction === -width && level1)) {
             wall = true
-            popup.innerHTML = `<h3>Oops, you hit the wall! Try again!</h3>`
+            popup.innerHTML = `<h2>Oops, you hit the wall! Try again!</h2>`
     }
         return wall
    }
@@ -244,7 +244,7 @@ function finishTheGame() {
     document.addEventListener('keyup', startGame)
     
     if(gameOver) {
-         popup.innerHTML = `<h3>Congratulations! The game is over!</h3>`
+         popup.innerHTML = `<h2>Congratulations! The game is over!</h2>`
         // level1=true
         // level2=false
         // document.removeEventListener('keyup', handleKeyMove)
