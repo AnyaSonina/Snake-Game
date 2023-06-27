@@ -202,10 +202,14 @@ function move() {
 
     if(targetScore===0 && level1) {
        localStorage.setItem("score", JSON.stringify(score))
+       infoDisplay.style.display = "grid"
+       buttonsDisplay.style.display = "none"
        displayScore()
        levelTwo()
       
     }else if(targetScore === 4 && level2){
+        buttonsDisplay.style.display = "grid"
+        infoDisplay.style.display = "none"
         clearLS()
         displayScore()
     }else if(targetScore === 0 && level2){
