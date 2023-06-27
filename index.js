@@ -24,10 +24,25 @@ let level2 = false
 let timerId = 0
 let running = false
 let storedResults
-let targetScore = 1
+let targetScore = 3
 let gameOver = false
 
 let intervalTime
+
+
+function clearLS() {
+    score = 0
+    bestScore = 0
+    localStorage.setItem("score", JSON.stringify(score))
+    bestResDisplay.innerText = bestScore
+}
+
+    
+function displayScore() {
+    storedResults = JSON.parse(localStorage.getItem("score"))
+    storedResults > bestScore ? bestScore=storedResults : bestScore
+    bestResDisplay.innerText = bestScore 
+}
 
 
 
@@ -53,8 +68,11 @@ function startGame() {
     intervalTime = level1 ? 900 : level2 ? 500 : 9000
     gameOver = false    
     score=0
-    localStorage.clear()
     bestResDisplay.innerText = 0
+    clearLS()
+    displayScore()
+
+    console.log(score)
     
     document.removeEventListener('keyup', startGame)
     document.addEventListener('keyup', handleKeyMove)
@@ -85,6 +103,7 @@ function startGame() {
     squares[currentSnake[0]].style.transform = "rotate(-90deg)"
     timerId = setInterval(move, intervalTime)
   
+
 }
 
 
@@ -93,6 +112,7 @@ function move() {
     running = true
    gameField.focus({block:"center"})
    let tail
+   let wall = false
 
    function hitItself() {
        let snakeBody = [...currentSnake]
@@ -101,7 +121,6 @@ function move() {
        return snakeBody.some(tile => tile === headSnake)
    }
 
-   let wall = false
    function hitTheWall() {
     if ((currentSnake[0] + width >= width*width && direction === width && level1) || 
         (currentSnake[0] % width === width-1 && direction === 1 && level1) || 
@@ -114,11 +133,7 @@ function move() {
    }
     
     if(hitTheWall() || hitItself()) {
-       resultsArr.unshift(score)
-       localStorage.setItem("score", JSON.stringify(resultsArr))
-       storedResults = JSON.parse(localStorage.getItem("score"))
-       storedResults[0] > bestScore ? bestScore=storedResults[0] : bestScore
-       bestResDisplay.innerText = bestScore  
+       localStorage.setItem("score", JSON.stringify(score))
        finishTheGame()
     }
    else {
@@ -166,7 +181,7 @@ function move() {
    })
 
  
-    if (squares[currentSnake[0]].classList.contains('apple') && running) {
+    if (squares[currentSnake[0]].classList.contains('apple')) {
         squares[currentSnake[0]].classList.remove('apple')
         squares[tail].classList.add('snake')
         currentSnake.push(tail)
@@ -179,25 +194,23 @@ function move() {
         timerId = setInterval(move, intervalTime)
         
     }
-    
-    
+
+
+
     if(targetScore===0 && level1) {
-        resultsArr.unshift(score)
-       localStorage.setItem("score", JSON.stringify(resultsArr))
-       storedResults = JSON.parse(localStorage.getItem("score"))
-       storedResults[0] > bestScore ? bestScore=storedResults[0] : bestScore
-       bestResDisplay.innerText = bestScore 
-       score = 0
+       localStorage.setItem("score", JSON.stringify(score))
+       displayScore()
        levelTwo()
+       console.log(score)
     
+    }else if(targetScore === 4 && level2){
+        clearLS()
+        displayScore()
     }else if(targetScore === 0 && level2){
         gameOver = true
-        resultsArr.unshift(score)
-        localStorage.setItem("score", JSON.stringify(resultsArr))
-        storedResults = JSON.parse(localStorage.getItem("score"))
-        storedResults[0] > bestScore ? bestScore=storedResults[0] : bestScore
-        bestResDisplay.innerText = bestScore  
-        finishTheGame()    
+        localStorage.setItem("score", JSON.stringify(score))
+         finishTheGame()    
+         console.log(score)
     }
 }
 }
@@ -232,8 +245,11 @@ function handleKeyMove(e) {
 
 function finishTheGame() {
     running = false
-    targetScore = level1 ? 4 : 6
+    targetScore = level1 ? 3 : 4
     intervalTime = level1 ? 1000 : level2 ? 500 : 500 
+
+   displayScore()
+   console.log(score)
 
     infoDisplay.style.display = "grid"
     buttonsDisplay.style.display = "none"
@@ -244,12 +260,14 @@ function finishTheGame() {
     document.addEventListener('keyup', startGame)
     
     if(gameOver) {
+        displayScore()
          popup.innerHTML = `<h2>Congratulations! The game is over!</h2>`
-        // level1=true
-        // level2=false
-        // document.removeEventListener('keyup', handleKeyMove)
-        // document.addEventListener('keyup', startGame)
-        levelOne()
+         document.removeEventListener('keyup', handleKeyMove)
+         document.removeEventListener('keyup', startGame)
+         level1= true
+         level2 = false
+         gameField.addEventListener("click",  levelOne)
+        
     }
     return clearInterval(timerId)
 }
@@ -276,25 +294,24 @@ gameField.addEventListener("click", () => {
 })
 
 function levelTwo() {
-    targetScore=2
+    targetScore=4
     level2 = true
     level1 = false
     popup.innerHTML = `<h3>Congratulations! Follow to the Level 2!</h3>`
     popup.style.display = "block"
     levelDisplay.textContent = "2"
-  
     clearInterval(timerId)
     startId = setInterval(startGame,2000)
 }
 
 function levelOne() {
-    targetScore=1
+    targetScore=3
     level2 = false
     level1 = true
     levelDisplay.textContent = "1"
-    
-    startId = setInterval(startGame,2000)
-}
+    score = 0
+    startGame()
+    }
 
 
 document.addEventListener('keyup', startGame)
