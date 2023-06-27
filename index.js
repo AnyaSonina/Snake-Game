@@ -30,6 +30,8 @@ let gameOver = false
 let intervalTime
 
 
+
+
 function clearLS() {
     score = 0
     bestScore = 0

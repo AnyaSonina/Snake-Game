@@ -143,8 +143,7 @@ h2 {
 }
 
 #popup {
-  display: none;
-  position: absolute;
+ position: absolute;
   top: 45%;
   left:50%;
   min-width: 200px;
