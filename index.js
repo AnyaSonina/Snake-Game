@@ -8,6 +8,7 @@ const levelDisplay = document.getElementById("level-display")
 const infoDisplay = document.getElementById("info")
 const buttonsDisplay = document.getElementById("buttons")
 const keyBtns = document.querySelectorAll(".keys-container button")
+const displaySpeed = document.getElementById("speed")
 let startId = 0
 let squares = []
 let currentSnake = [2,1,0]
@@ -67,6 +68,7 @@ currentSnake.forEach(index => {
 
 
 function startGame() {
+    displaySpeed.textContent = 0
     intervalTime = level1 ? 900 : level2 ? 500 : 9000
     gameOver = false    
     score=0
@@ -103,14 +105,14 @@ function startGame() {
     squares[currentSnake[0]].classList.add("head-br")
     squares[currentSnake[0]].style.transform = "rotate(-90deg)"
     timerId = setInterval(move, intervalTime)
-  
+    displaySpeed.textContent = Math.floor(intervalTime)
 
 }
 
 
 function move() {
     console.log(intervalTime)
-    running = true
+   displaySpeed.textContent = Math.floor(intervalTime)
    gameField.focus({block:"center"})
    let tail
    let wall = false
@@ -246,6 +248,7 @@ function finishTheGame() {
     running = false
     targetScore = level1 ? 3 : 4
     intervalTime = level1 ? 1000 : level2 ? 500 : 500 
+    displaySpeed.textContent = 0
 
    displayScore()
    infoDisplay.style.display = "grid"
@@ -258,6 +261,7 @@ function finishTheGame() {
     
     if(gameOver) {
         displayScore()
+        displaySpeed.textContent = 0
          popup.innerHTML = `<h2>Congratulations! The game is over!</h2>`
          document.removeEventListener('keyup', handleKeyMove)
          document.removeEventListener('keyup', startGame)
