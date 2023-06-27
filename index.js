@@ -72,8 +72,7 @@ function startGame() {
     clearLS()
     displayScore()
 
-    console.log(score)
-    
+   
     document.removeEventListener('keyup', startGame)
     document.addEventListener('keyup', handleKeyMove)
     clearInterval(startId)
@@ -201,8 +200,7 @@ function move() {
        localStorage.setItem("score", JSON.stringify(score))
        displayScore()
        levelTwo()
-       console.log(score)
-    
+      
     }else if(targetScore === 4 && level2){
         clearLS()
         displayScore()
@@ -210,8 +208,7 @@ function move() {
         gameOver = true
         localStorage.setItem("score", JSON.stringify(score))
          finishTheGame()    
-         console.log(score)
-    }
+        }
 }
 }
 
@@ -249,9 +246,7 @@ function finishTheGame() {
     intervalTime = level1 ? 1000 : level2 ? 500 : 500 
 
    displayScore()
-   console.log(score)
-
-    infoDisplay.style.display = "grid"
+   infoDisplay.style.display = "grid"
     buttonsDisplay.style.display = "none"
     gameField.style.opacity = "0.8"
     popup.style.display = "block"
