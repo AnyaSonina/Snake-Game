@@ -151,10 +151,13 @@ h2 {
   transform: translate(-50%, -50%);
   text-align: center;
   z-index: 2;
-  background-color: #4F5063;
-  color: white;
   padding: 1em 2em;
   border-radius: 10px;
+}
+
+.popup-initial {
+  background-color: #4F5063;
+  color: white;
 }
 
 /*Keys*/
@@ -198,6 +201,11 @@ h2 {
 
 #ArrowRight {
   grid-area: right;
+}
+
+.warning {
+  color: #fff;
+  background-color: rgba(221, 34, 34, 0.823);
 }
 
 

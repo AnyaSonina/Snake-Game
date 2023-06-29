@@ -132,6 +132,7 @@ function move() {
        let snakeBody = [...currentSnake]
        let headSnake = snakeBody.shift()
        popup.innerHTML = `<h2>Oops, you hit yourself! Try again!</h2>`
+       popup.classList.add("warning")
        return snakeBody.some(tile => tile === headSnake)
    }
 
@@ -142,6 +143,8 @@ function move() {
         (currentSnake[0] - width < 0 && direction === -width && level1)) {
             wall = true
             popup.innerHTML = `<h2>Oops, you hit the wall! Try again!</h2>`
+            popup.classList.add("warning")
+            console.log(popup)
     }
         return wall
    }
