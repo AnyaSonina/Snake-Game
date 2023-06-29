@@ -9,6 +9,8 @@ const infoDisplay = document.getElementById("info")
 const buttonsDisplay = document.getElementById("buttons")
 const keyBtns = document.querySelectorAll(".keys-container button")
 const displaySpeed = document.getElementById("speed-display")
+const icon = document.querySelector(".fa-regular")
+const modeBtn = document.getElementById("mode_icon")
 let startId = 0
 let squares = []
 let currentSnake = [2,1,0]
@@ -330,6 +332,19 @@ function levelOne() {
 
 
 document.addEventListener('keyup', startGame)
+
+
+icon.classList.add("fa-moon")
+
+modeBtn.addEventListener("click", () => {
+  document.documentElement.classList.toggle("light")
+  if(icon.classList.contains("fa-moon")) {
+    icon.classList.replace("fa-moon", "fa-sun")
+  }else {
+    icon.classList.replace("fa-sun", "fa-moon")
+  }
+})
+
 
 
 //depending on the best result, restart the game from the suitable level
