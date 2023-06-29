@@ -234,6 +234,22 @@ h2 {
   background-color: rgba(221, 34, 34, 0.823);
 }
 
+#mode_icon {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 1em;
+  background-color: var(--boxes-color);
+  border:2px dashed var(--font-color);
+  width: 80px;
+  height: 35px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.fa-moon, .fa-sun {
+  color:var(--font-color);
+}
+
 
 @media (min-width: 406px) {
   .grid-container {
@@ -253,7 +269,7 @@ h2 {
   #mode_icon {
     grid-area: icon;
     justify-self: center;
-    width: 20px;
+    width: 80px;
     text-align: center;
   }
 
