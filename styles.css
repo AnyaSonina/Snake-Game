@@ -12,12 +12,12 @@
 }
 
 :root.light {
-  --game-field-color: #e8ddd9;
-  --boxes-color: yellow;
+  --game-field-color: #f0e5e2;
+  --boxes-color: #b36d58;
   --snake-color: green;
   --apple: "🍎";
   --background-image: url("./img/desert-theme.jpg");
-  --font-color: gray;
+  --font-color: #fff;
 }
 
 html { 
