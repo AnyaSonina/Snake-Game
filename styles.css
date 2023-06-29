@@ -147,6 +147,7 @@ h2 {
   top: 45%;
   left:50%;
   min-width: 200px;
+  max-width: 400px;
   transform: translate(-50%, -50%);
   text-align: center;
   z-index: 2;
@@ -221,8 +222,8 @@ h2 {
   }
 
   #popup {
-    top:50%;
-    transform: translate(-35%, -50%);
+    top:54%;
+    transform: translate(-37%, -50%);
   }
 }
 
@@ -234,8 +235,8 @@ h2 {
   }
   
   #popup {
-    top:50%;
-    transform: translate(-35%, -50%);
+    top:54%;
+    transform: translate(-38.5%, -50%);
   
   }
 
