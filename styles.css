@@ -56,6 +56,7 @@ h2 {
 }
 
 .box {
+  cursor: pointer;
   background-color: var(--game-field-color);
   border-radius: 10px;
   border: none;
