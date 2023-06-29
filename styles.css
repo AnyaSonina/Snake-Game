@@ -11,6 +11,15 @@
   --font-color: #fff;
 }
 
+:root.light {
+  --game-field-color: #e8ddd9;
+  --boxes-color: yellow;
+  --snake-color: green;
+  --apple: "🍎";
+  --background-image: url("./img/desert-theme.jpg");
+  --font-color: gray;
+}
+
 html { 
   background: var(--background-image)  no-repeat center center fixed; 
   -webkit-background-size: cover;
@@ -67,8 +76,9 @@ h2 {
   margin: 0 1.5em;
   gap:10px;
   grid-template-columns: minmax(50px,1fr) minmax(50px,1fr);
-  grid-template-areas:
+  grid-template-areas: 
   " title title"
+  "icon icon"
    "grid grid"
    "grid grid"
    "info info";
@@ -78,6 +88,13 @@ h2 {
   grid-area: title;
   justify-self: center;
   width: 100%;
+  text-align: center;
+} 
+
+#mode_icon {
+  grid-area: icon;
+  justify-self: center;
+  width: 20px;
   text-align: center;
 }
 
@@ -223,6 +240,7 @@ h2 {
     grid-template-columns: minmax(50px,1fr) 6fr;
     grid-template-areas:
     " title title"
+    "icon icon"
      "info grid"
      "info grid";
   }
@@ -230,6 +248,13 @@ h2 {
   .game-info {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
+  }
+
+  #mode_icon {
+    grid-area: icon;
+    justify-self: center;
+    width: 20px;
+    text-align: center;
   }
 
   .flex {
