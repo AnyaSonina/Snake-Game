@@ -2,8 +2,17 @@
   box-sizing: border-box;
 }
 
+:root {
+  --game-field-color: #e8ddd9;
+  --boxes-color: #4F5063;
+  --snake-color: green;
+  --apple: "🍎";
+  --background-image: url("./img/bg.jpg");
+  --font-color: #fff;
+}
+
 html { 
-  background: url("./img/bg.jpg") no-repeat center center fixed; 
+  background: var(--background-image)  no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -36,7 +45,7 @@ h2 {
 }
 
 .box {
-  background-color: #e8ddd9;
+  background-color: var(--game-field-color);
   border-radius: 10px;
   border: none;
   box-shadow: 10px 10px 30px rgb(0, 0, 0, 0.5);
@@ -44,12 +53,12 @@ h2 {
 }
 
 .small-box {
-  background-color: #4F5063;
+  background-color: var(--boxes-color);
   height: min-content;
   border-radius: 10px;
   border: none;
   padding: 5px;
-  color:white;
+  color:var(--font-color);
 }
 
 .grid-container {
@@ -107,7 +116,7 @@ h2 {
 }
 
 .snake {
-  background: green;
+  background:var(--snake-color) ;
   border-radius: 50%;
   width: 98%;
   height: 100%;
@@ -124,7 +133,7 @@ h2 {
 }
 
 .apple::after {
- content: "🍎";
+ content: var(--apple);
   margin: 0 auto;
 }
 
@@ -156,8 +165,8 @@ h2 {
 }
 
 .popup-initial {
-  background-color: #4F5063;
-  color: white;
+  background-color: var(--boxes-color);
+  color: var(--font-color);
 }
 
 /*Keys*/
@@ -204,7 +213,7 @@ h2 {
 }
 
 .warning {
-  color: #fff;
+  color: var(--font-color);
   background-color: rgba(221, 34, 34, 0.823);
 }
 
