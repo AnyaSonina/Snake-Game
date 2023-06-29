@@ -9,6 +9,7 @@
   --apple: "🍎";
   --background-image: url("./img/bg.jpg");
   --font-color: #fff;
+  --warning-color:rgba(221, 34, 34, 0.823);
 }
 
 :root.light {
@@ -18,6 +19,7 @@
   --apple: "🍎";
   --background-image: url("./img/desert-theme.jpg");
   --font-color: #fff;
+  --warning-color:#f19c7c;
 }
 
 html { 
@@ -235,7 +237,7 @@ h2 {
 
 .warning {
   color: var(--font-color);
-  background-color: rgba(221, 34, 34, 0.823);
+  background-color: var(--warning-color);
 }
 
 #mode_icon {
