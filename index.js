@@ -21,16 +21,13 @@ let resultsArr = []
 let speed = 0.9
 let level1 = true
 let level2 = false
-
 let timerId = 0
 let running = false
 let storedResults
 let targetScore = 3
 let gameOver = false
-
 let intervalTime
-
-
+let snakeSquares = []
 
 
 function clearLS() {
@@ -39,14 +36,12 @@ function clearLS() {
     localStorage.setItem("score", JSON.stringify(score))
     bestResDisplay.innerText = bestScore
 }
-
     
 function displayScore() {
     storedResults = JSON.parse(localStorage.getItem("score"))
     storedResults > bestScore ? bestScore=storedResults : bestScore
     bestResDisplay.innerText = bestScore 
 }
-
 
 
 function createGrid() {    
@@ -75,7 +70,6 @@ function startGame() {
     bestResDisplay.innerText = 0
     clearLS()
     displayScore()
-
    
     document.removeEventListener('keyup', startGame)
     document.addEventListener('keyup', handleKeyMove)
@@ -87,19 +81,14 @@ function startGame() {
    popup.style.display = "none"
    
     currentSnake.forEach(index => squares[index].classList.remove('snake'))
-
     squares[appleIndex].classList.remove("apple")
-
     squares[currentSnake[0]].classList.remove("head-br")
   
     clearInterval(timerId)
     currentSnake = [2,1,0]
     scoreDisplay.textContent = `${targetScore}`
     direction = 1
-
-    
-    console.log(intervalTime)
-   
+  
     generateApple()
     currentSnake.forEach(index => squares[index].classList.add('snake'))
     squares[currentSnake[0]].classList.add("head-br")
@@ -109,9 +98,31 @@ function startGame() {
 
 }
 
+function mobileLayout() {
+    if(window.innerWidth < 400) {
+
+        infoDisplay.style.display = "none"
+        buttonsDisplay.style.display = "grid"
+
+        if(targetScore === 0 && level1) {
+            infoDisplay.style.display = "grid"
+            buttonsDisplay.style.display = "none"
+        }else if(targetScore === 0 && level2) {
+            infoDisplay.style.display = "grid"
+            buttonsDisplay.style.display = "none"
+        }else if(targetScore === 4 && level2){
+            buttonsDisplay.style.display = "grid"
+            infoDisplay.style.display = "none"
+        }
+    }else {
+        infoDisplay.style.display = "grid"
+        buttonsDisplay.style.display = "none"
+    }
+}
 
 function move() {
-    console.log(intervalTime)
+    mobileLayout()
+
    displaySpeed.textContent = Math.floor(intervalTime)
    gameField.focus({block:"center"})
    let tail
@@ -183,7 +194,8 @@ function move() {
         square.style.transform = "rotate(0)"  
    })
 
- 
+  
+
     if (squares[currentSnake[0]].classList.contains('apple')) {
         squares[currentSnake[0]].classList.remove('apple')
         squares[tail].classList.add('snake')
@@ -194,52 +206,50 @@ function move() {
         scoreDisplay.textContent = `${targetScore}`
         clearInterval(timerId)
         intervalTime = intervalTime * speed
-        timerId = setInterval(move, intervalTime)
-        
+        timerId = setInterval(move, intervalTime)        
     }
-
-
 
     if(targetScore===0 && level1) {
        localStorage.setItem("score", JSON.stringify(score))
-       infoDisplay.style.display = "grid"
-       buttonsDisplay.style.display = "none"
        displayScore()
        levelTwo()
       
     }else if(targetScore === 4 && level2){
-        buttonsDisplay.style.display = "grid"
-        infoDisplay.style.display = "none"
         clearLS()
         displayScore()
     }else if(targetScore === 0 && level2){
         gameOver = true
         localStorage.setItem("score", JSON.stringify(score))
-         finishTheGame()    
-        }
+        finishTheGame()    
+    }
+
+
 }
 }
 
+
+// let restSquares = squares.filter(square => !snakeSquares.includes(square))
+
 function generateApple() {
-    do {
+    do{
     appleIndex = Math.floor(Math.random() * squares.length)
-    } while (squares[appleIndex].classList.contains('snake'))
+    }while(squares[appleIndex].classList.contains('head-br'))
     squares[appleIndex].classList.add('apple')
 } 
 
 function control(moveDirection) {
     if (moveDirection === "ArrowRight") {
         direction = 1
-      }
-      if (moveDirection === "ArrowLeft") {
-        direction = -1
-      }
-      if (moveDirection === "ArrowUp") {
-        direction = -width
-      }
-      if (moveDirection === "ArrowDown") {
-        direction = width
-      }
+    }
+    if (moveDirection === "ArrowLeft") {
+      direction = -1
+    }
+    if (moveDirection === "ArrowUp") {
+      direction = -width
+    }
+    if (moveDirection === "ArrowDown") {
+      direction = width
+    }
 }
 
 function handleKeyMove(e) {
@@ -292,10 +302,7 @@ function handleButtonKeyMove(e) {
 
 gameField.addEventListener("click", () => {
     startGame()
-    if(window.screen.width < 406) {
-        infoDisplay.style.display = "none"
-        buttonsDisplay.style.display = "grid"
-    }
+    mobileLayout()
 })
 
 function levelTwo() {
