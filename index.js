@@ -46,13 +46,20 @@ function displayScore() {
 }
 
 
+
+
 function createGrid() {    
+   
     for (let i=0; i < width*width; i++) {
-       const square = document.createElement('div')
-       square.classList.add('square')
-       grid.appendChild(square)
-       squares.push(square)
+        const square = document.createElement('div')
+        square.classList.add('square')
+        grid.appendChild(square)
+        squares.push(square)
     }    
+
+   
+    
+    
     squares[currentSnake[0]].classList.add("head-br")
     squares[currentSnake[0]].style.transform = "rotate(-90deg)"
 }
@@ -62,6 +69,19 @@ currentSnake.forEach(index => {
     squares[index].classList.add('snake')
     squares[currentSnake[0]].classList.remove("snake")
 })
+
+function renderWalls() {
+    let wallOne = [53, 54, 55, 45]
+    let wallTwo = [69, 79, 89, 99]
+    let wallThree = [10, 20, 30]
+    wallOne.forEach(index => {
+        squares[index].classList.add("wall")
+    })
+    wallTwo.forEach(index => {
+        squares[index].classList.add("wall")
+    })
+    wallThree.forEach(index => squares[index].classList.add("wall"))
+}
 
 
 function startGame() {
@@ -91,6 +111,9 @@ function startGame() {
     scoreDisplay.textContent = `${targetScore}`
     direction = 1
   
+    if(level2) {
+        renderWalls()
+    }
     generateApple()
     currentSnake.forEach(index => squares[index].classList.add('snake'))
     squares[currentSnake[0]].classList.add("head-br")
@@ -227,11 +250,8 @@ function move() {
         localStorage.setItem("score", JSON.stringify(score))
         finishTheGame()    
     }
-
-
 }
 }
-
 
 // let restSquares = squares.filter(square => !snakeSquares.includes(square))
 
@@ -328,8 +348,7 @@ function levelOne() {
     levelDisplay.textContent = "1"
     score = 0
     startGame()
-    }
-
+}
 
 document.addEventListener('keyup', startGame)
 
