@@ -186,6 +186,10 @@ h2 {
   color: var(--font-color);
 }
 
+#popup h2 {
+  font-size: 1.5rem;
+}
+
 /*Keys*/
 
 .keys-container {
