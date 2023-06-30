@@ -114,7 +114,10 @@ function startGame() {
   
     if(level2) {
         renderWalls()
+    }else {
+        squares.forEach(square => square.classList.remove("wall"))
     }
+
     currentSnake.forEach(index => squares[index].classList.add('snake'))
     squares[currentSnake[0]].classList.add("head-br")
     generateApple()
