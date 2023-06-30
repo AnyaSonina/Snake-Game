@@ -166,7 +166,9 @@ function move() {
     if ((currentSnake[0] + width >= width*width && direction === width && level1) || 
         (currentSnake[0] % width === width-1 && direction === 1 && level1) || 
         (currentSnake[0] % width === 0 && direction === -1 && level1) || 
-        (currentSnake[0] - width < 0 && direction === -width && level1)) {
+        (currentSnake[0] - width < 0 && direction === -width && level1) ||
+        (squares[currentSnake[0]].classList.contains("wall") && level2))
+         {
             wall = true
             popup.innerHTML = `<h2>Oops, you hit the wall! Try again!</h2>`
             popup.classList.add("warning")
