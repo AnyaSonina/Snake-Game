@@ -21,8 +21,8 @@ let score = 0
 let bestScore = 0
 let resultsArr = []
 let speed = 0.9
-let level1 = false
-let level2 = true
+let level1 = true
+let level2 = false
 let timerId = 0
 let running = false
 let storedResults
@@ -87,7 +87,7 @@ function renderWalls() {
 
 function startGame() {
     displaySpeed.textContent = 0
-    intervalTime = level1 ? 900 : level2 ? 500 : 9000
+    intervalTime = 500
     gameOver = false    
     score=0
     bestResDisplay.innerText = 0
@@ -136,7 +136,7 @@ function mobileLayout() {
         }else if(targetScore === 0 && level2) {
             infoDisplay.style.display = "grid"
             buttonsDisplay.style.display = "none"
-        }else if(targetScore === 4 && level2){
+        }else if(targetScore === 13 && level2){
             buttonsDisplay.style.display = "grid"
             infoDisplay.style.display = "none"
         }
@@ -167,9 +167,10 @@ function move() {
         (currentSnake[0] % width === width-1 && direction === 1 && level1) || 
         (currentSnake[0] % width === 0 && direction === -1 && level1) || 
         (currentSnake[0] - width < 0 && direction === -width && level1) ||
-        (squares[currentSnake[0]].classList.contains("wall") && level2))
+        (squares[currentSnake[0]].classList.contains("wall")))
          {
             wall = true
+            squares[currentSnake[0]].classList.remove("wall")
             popup.innerHTML = `<h2>Oops, you hit the wall! Try again!</h2>`
             popup.classList.add("warning")
             console.log(popup)
@@ -245,7 +246,7 @@ function move() {
        displayScore()
        levelTwo()
       
-    }else if(targetScore === 4 && level2){
+    }else if(targetScore === 13 && level2){
         clearLS()
         displayScore()
     }else if(targetScore === 0 && level2){
@@ -305,7 +306,7 @@ function handleKeyMove(e) {
 
 function finishTheGame() {
     running = false
-    targetScore = level1 ? 10 : 20
+    targetScore = level1 ? 10 : 13
     intervalTime = level1 ? 1000 : level2 ? 500 : 500 
     displaySpeed.textContent = 0
 
@@ -351,7 +352,7 @@ gameField.addEventListener("click", () => {
 })
 
 function levelTwo() {
-    targetScore=15
+    targetScore=13
     level2 = true
     level1 = false
     popup.innerHTML = `<h3>Congratulations! Follow to the Level 2!</h3>`
@@ -386,13 +387,3 @@ modeBtn.addEventListener("click", () => {
 
 
 
-//depending on the best result, restart the game from the suitable level
-//notify the user how he can start the game
-
-/*create level3 with obstacles
-renevew the level info on different levels
-center the popup div
-apply the "cange the mode" feature
-create root colors and create the different styles of the game
-refactor the level function and make it universal 
-*/

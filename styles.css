@@ -19,7 +19,7 @@
   --apple: "🍎";
   --background-image: url("./img/desert-theme.jpg");
   --font-color: #fff;
-  --warning-color:#f19c7c;
+  --warning-color:rgba(221, 34, 34, 0.823);
 }
 
 html { 
