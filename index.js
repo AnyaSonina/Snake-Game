@@ -26,7 +26,7 @@ let level2 = false
 let timerId = 0
 let running = false
 let storedResults
-let targetScore = 3
+let targetScore = 10
 let gameOver = false
 let intervalTime
 let snakeSquares = []
@@ -114,9 +114,9 @@ function startGame() {
     if(level2) {
         renderWalls()
     }
-    generateApple()
     currentSnake.forEach(index => squares[index].classList.add('snake'))
     squares[currentSnake[0]].classList.add("head-br")
+    generateApple()
     squares[currentSnake[0]].style.transform = "rotate(-90deg)"
     timerId = setInterval(move, intervalTime)
     displaySpeed.textContent = Math.floor(intervalTime)
@@ -256,10 +256,21 @@ function move() {
 // let restSquares = squares.filter(square => !snakeSquares.includes(square))
 
 function generateApple() {
+    
     do{
-    appleIndex = Math.floor(Math.random() * squares.length)
-    }while(squares[appleIndex].classList.contains('head-br'))
-    squares[appleIndex].classList.add('apple')
+    let random = Math.floor(Math.random() * squares.length)
+    currentSnake.map(snake => random !== snake) ?  appleIndex = random : "none"
+    
+    }while(squares[appleIndex].classList.contains('snake'))
+  
+    if(!squares[appleIndex].classList.contains("snake") || !squares[appleIndex].classList.contains("wall")) {
+        squares[appleIndex].classList.add('apple')    
+    }else {
+        console.log("contains")
+        appleIndex = Math.floor(Math.random() * squares.length)
+        squares[appleIndex].classList.add('apple')    
+    }
+
 } 
 
 function control(moveDirection) {
@@ -285,7 +296,7 @@ function handleKeyMove(e) {
 
 function finishTheGame() {
     running = false
-    targetScore = level1 ? 3 : 4
+    targetScore = level1 ? 10 : 20
     intervalTime = level1 ? 1000 : level2 ? 500 : 500 
     displaySpeed.textContent = 0
 
@@ -331,7 +342,7 @@ gameField.addEventListener("click", () => {
 })
 
 function levelTwo() {
-    targetScore=4
+    targetScore=15
     level2 = true
     level1 = false
     popup.innerHTML = `<h3>Congratulations! Follow to the Level 2!</h3>`
@@ -342,7 +353,7 @@ function levelTwo() {
 }
 
 function levelOne() {
-    targetScore=3
+    targetScore=10
     level2 = false
     level1 = true
     levelDisplay.textContent = "1"
