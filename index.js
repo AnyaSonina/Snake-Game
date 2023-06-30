@@ -325,7 +325,7 @@ function finishTheGame() {
     if(gameOver) {
         displayScore()
         displaySpeed.textContent = 0
-         popup.innerHTML = `<h2>Congratulations! The game is over!</h2>`
+         popup.innerHTML = `<h2>Congratulations! The game is over! Click on the field to play again!</h2>`
          document.removeEventListener('keyup', handleKeyMove)
          document.removeEventListener('keyup', startGame)
          level1= true
@@ -358,7 +358,7 @@ function levelTwo() {
     targetScore=13
     level2 = true
     level1 = false
-    popup.innerHTML = `<h3>Congratulations! Follow to the Level 2!</h3>`
+    popup.innerHTML = `<h3>Congratulations! Follow to the Level 2 and be careful! Now you can go through walls!</h3>`
     popup.style.display = "block"
     levelDisplay.textContent = "2"
     clearInterval(timerId)
