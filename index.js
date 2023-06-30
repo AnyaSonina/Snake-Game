@@ -21,8 +21,8 @@ let score = 0
 let bestScore = 0
 let resultsArr = []
 let speed = 0.9
-let level1 = true
-let level2 = false
+let level1 = false
+let level2 = true
 let timerId = 0
 let running = false
 let storedResults
@@ -30,6 +30,9 @@ let targetScore = 10
 let gameOver = false
 let intervalTime
 let snakeSquares = []
+let wallOne = [53, 54, 55, 45]
+let wallTwo = [69, 79, 89, 99]
+let wallThree = [10, 20, 30]
 
 
 function clearLS() {
@@ -71,9 +74,7 @@ currentSnake.forEach(index => {
 })
 
 function renderWalls() {
-    let wallOne = [53, 54, 55, 45]
-    let wallTwo = [69, 79, 89, 99]
-    let wallThree = [10, 20, 30]
+    
     wallOne.forEach(index => {
         squares[index].classList.add("wall")
     })
@@ -259,17 +260,23 @@ function generateApple() {
     
     do{
     let random = Math.floor(Math.random() * squares.length)
-    currentSnake.map(snake => random !== snake) ?  appleIndex = random : "none"
-    
+    currentSnake.every(snake => random !== snake) ?  appleIndex = random : random = Math.floor(Math.random() * squares.length)
+  
+    if(level2) {
+     if(currentSnake.every(snake => random !== snake) && wallOne.every(wall => random !== wall) && wallTwo.every(wall => random !== wall) &&
+    wallThree.every(wall => random !== wall)) {
+        appleIndex = random
+    }else {
+        random = Math.floor(Math.random() * squares.length)
+        appleIndex = random
+    }   
+    }
+
     }while(squares[appleIndex].classList.contains('snake'))
   
-    if(!squares[appleIndex].classList.contains("snake") || !squares[appleIndex].classList.contains("wall")) {
-        squares[appleIndex].classList.add('apple')    
-    }else {
-        console.log("contains")
-        appleIndex = Math.floor(Math.random() * squares.length)
-        squares[appleIndex].classList.add('apple')    
-    }
+
+    squares[appleIndex].classList.add('apple')    
+
 
 } 
 
