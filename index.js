@@ -49,8 +49,6 @@ function displayScore() {
 }
 
 
-
-
 function createGrid() {    
    
     for (let i=0; i < width*width; i++) {
@@ -58,10 +56,7 @@ function createGrid() {
         square.classList.add('square')
         grid.appendChild(square)
         squares.push(square)
-    }    
-
-   
-    
+    }       
     
     squares[currentSnake[0]].classList.add("head-br")
     squares[currentSnake[0]].style.transform = "rotate(-90deg)"
@@ -186,7 +181,7 @@ function move() {
        finishTheGame()
     }
    else {
-       //Making walls permeable on level2
+   
     function permeableWalls(newHeadval) {
         let oldHead = currentSnake[0]
         let newHead = newHeadval
@@ -260,7 +255,6 @@ function move() {
 }
 }
 
-// let restSquares = squares.filter(square => !snakeSquares.includes(square))
 
 function generateApple() {
     
@@ -280,9 +274,7 @@ function generateApple() {
 
     }while(squares[appleIndex].classList.contains('snake'))
   
-
     squares[appleIndex].classList.add('apple')    
-
 
 } 
 
@@ -325,19 +317,18 @@ function finishTheGame() {
     if(gameOver) {
         displayScore()
         displaySpeed.textContent = 0
-         popup.innerHTML = `<h2>Congratulations! The game is over! Click on the field to play again!</h2>`
+         popup.innerHTML = `<h2>Congratulations! The game is over! Click on the field to start again!</h2>`
          document.removeEventListener('keyup', handleKeyMove)
          document.removeEventListener('keyup', startGame)
          level1= true
          level2 = false
-         gameField.addEventListener("click",  levelOne)
+         gameField.addEventListener("click", levelOne)
         
     }
     return clearInterval(timerId)
 }
 
 /*For mobiles */
-
 function handleButtonKeyMove(e) {
     running=true
     const { id } = e.currentTarget
