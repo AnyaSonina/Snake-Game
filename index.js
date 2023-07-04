@@ -24,7 +24,6 @@ let speed = 0.9
 let level1 = true
 let level2 = false
 let timerId = 0
-let running = false
 let storedResults
 let targetScore = 10
 let gameOver = false
@@ -283,7 +282,6 @@ function handleKeyMove(e) {
 }
 
 function finishTheGame() {
-    running = false
     targetScore = level1 ? 10 : 13
     intervalTime = level1 ? 1000 : level2 ? 500 : 500 
     displaySpeed.textContent = 0
@@ -313,7 +311,6 @@ function finishTheGame() {
 
 /*For mobiles */
 function handleButtonKeyMove(e) {
-    running=true
     const { id } = e.currentTarget
     control(id)
   }
