@@ -171,7 +171,6 @@ function move() {
             squares[currentSnake[0]].classList.remove("wall")
             popup.innerHTML = `<h2>Oops, you hit the wall! Try again!</h2>`
             popup.classList.add("warning")
-            console.log(popup)
     }
         return wall
    }
@@ -255,27 +254,11 @@ function move() {
 }
 }
 
-
-function generateApple() {
-    
+function generateApple() {    
     do{
-    let random = Math.floor(Math.random() * squares.length)
-    currentSnake.every(snake => random !== snake) ?  appleIndex = random : random = Math.floor(Math.random() * squares.length)
-  
-    if(level2) {
-     if(currentSnake.every(snake => random !== snake) && wallOne.every(wall => random !== wall) && wallTwo.every(wall => random !== wall) &&
-    wallThree.every(wall => random !== wall)) {
-        appleIndex = random
-    }else {
-        random = Math.floor(Math.random() * squares.length)
-        appleIndex = random
-    }   
-    }
-
-    }while(squares[appleIndex].classList.contains('snake'))
-  
+    appleIndex = Math.floor(Math.random() * squares.length)      
+    }while(squares[appleIndex].classList.contains('snake')|| squares[appleIndex].classList.contains('wall'))  
     squares[appleIndex].classList.add('apple')    
-
 } 
 
 function control(moveDirection) {
